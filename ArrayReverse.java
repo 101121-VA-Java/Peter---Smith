@@ -1,17 +1,16 @@
 public class ArrayReverse {
     public static void main(String[] args){
-//        String[] animals = {"Lion", "Tiger", "Monkey", "Bear", "Smake", "Rhino"};
+//        String[] args = {"Lion", "Tiger", "Monkey", "Bear", "Snake", "Rhino"};  // for testing
 
         System.out.print("The original array: ");
-//        printArray(animals);
-//        String[] reversedArray = revArray(animals);
         printArray(args);
 
         System.out.println();
 
-        String[] reversedArray = revArray(args);
         System.out.print("The reversed array: ");
-        printArray(reversedArray);
+ //       String[] reversedArray = revArray(args);          // This works but reversedArray only used in
+ //       printArray(reversedArray);                        // this line.  Better way is below
+          printArray(revArray(args)); 
 
     }
     public static void printArray(String[] array){    
