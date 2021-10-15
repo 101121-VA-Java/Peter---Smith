@@ -15,10 +15,9 @@ public class Driver{
         } else{
             System.out.println("Kiss me!");
         }
-        System.out.println("Hi I'm " + Lance.name);
         System.out.println("Frog " + Brian.name + " is " + Brian.age + " months old");
-        System.out.println(George.eating());
-        System.out.println(Todd.swim);
-        System.out.println(Todd.croaking);
+        George.eating();
+        Todd.swim();
+        Todd.croaking();
     }
 }

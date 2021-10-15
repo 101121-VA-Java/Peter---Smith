@@ -1,6 +1,5 @@
 package week1.models;
 import java.util.Random;
-
 public class Frog{
     public boolean isPoisonous;
     public String name;
@@ -38,8 +37,8 @@ public class Frog{
     public void eating(){
         Random rand = new Random();
         int randFlies = rand.nextInt(7);
-        if (randFlies == 0){
-            System.out.println("I'm so hungry");    
+        if (randFlies == 1){
+            System.out.println("Only 1 fly, I'm so hungry");    
         }
         else{
             System.out.println(name + " just ate " + randFlies + " flies");
