@@ -52,8 +52,6 @@ public class StringScan{
 		StringScan sd = new StringScan();
 		
 		System.out.println(sd.removeEveryOtherLetter("Hello World"));
-		
-		System.out.println(sd.getControllerValue("localhost:3500/controller/resource"));
 	}
 	
 	/*
@@ -87,8 +85,8 @@ public class StringScan{
 	public String getControllerValue(String url) {
 	//	StringBuilder newS = new StringBuilder();
 		int beg = url.indexOf('/');	
-		int end = url.indexOf('/', beg + 1);
-		String r = url.substring(beg + 1, end);
+		int end = url.indexOf('/', beg);
+		String r = String.substring(Beg, end);
 				
 		return r;
 	}

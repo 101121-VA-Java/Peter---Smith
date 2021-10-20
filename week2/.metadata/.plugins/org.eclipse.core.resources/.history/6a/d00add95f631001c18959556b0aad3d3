@@ -87,8 +87,8 @@ public class StringScan{
 	public String getControllerValue(String url) {
 	//	StringBuilder newS = new StringBuilder();
 		int beg = url.indexOf('/');	
-		int end = url.indexOf('/', beg + 1);
-		String r = url.substring(beg + 1, end);
+		int end = url.indexOf('/', beg);
+		String r = url.substring(beg, end);
 				
 		return r;
 	}
