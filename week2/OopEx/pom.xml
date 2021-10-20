@@ -4,7 +4,7 @@
   <artifactId>OopEx</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <properties>
-  	<maven.compile.source>1.8</maven.compile.source>
-  	<maven.compile.target>1.8</maven.compile.target>
+  	<maven.compiler.target>1.8</maven.compiler.target>
+  	<maven.compiler.source>1.8</maven.compiler.source>
   </properties>
 </project>

@@ -1,0 +1,22 @@
+package com.revature.models;
+
+import java.time.LocalDate;
+
+public class ImportantOopEx extends OopEx{
+
+	public ImportantOopEx() {
+		super();
+		LocalDate.now();
+	}	
+
+	public ImportantOopEx(String name, LocalDate dueDate) {
+	super(name, dueDate);
+	// TODO Auto-generated constructor stub
+	}
+
+	public void stress() {
+		this.setDueDate(this.getDueDate().minusDays(1));
+	}
+
+
+}

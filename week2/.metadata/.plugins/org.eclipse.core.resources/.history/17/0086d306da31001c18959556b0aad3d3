@@ -1,0 +1,19 @@
+package com.revature.models;
+import java.time.LocalDate;
+public class BoringOopEx extends OopEx{
+
+	public BoringOopEx() {
+		super();
+		LocalDate.now();
+	}	
+
+	public BoringOopEx(String name, LocalDate dueDate) {
+	super(name, dueDate);
+	}
+
+	public void slide() {
+		this.setDueDate(this.getDueDate().plusDays(1));
+	}
+
+
+}
