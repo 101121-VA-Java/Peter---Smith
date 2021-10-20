@@ -8,6 +8,7 @@ public class OopEx {
 	private String name;
 	
 	LocalDate dueDate;
+	private Task task;
 	
 	public OopEx(String name, LocalDate dueDate) {
 		super();
@@ -35,9 +36,23 @@ public class OopEx {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public Task getTask() {
+		return task;
+	}
+
+	public void setTask(Task task) {
+		this.task = task;
+	}
+
 	@Override
-	public String toString() {
-		return "OopEx [name=" + name + ", dueDate=" + dueDate + "]";
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dueDate == null) ? 0 : dueDate.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((task == null) ? 0 : task.hashCode());
+		return result;
 	}
 
 	@Override
@@ -59,9 +74,19 @@ public class OopEx {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
+		if (task == null) {
+			if (other.task != null)
+				return false;
+		} else if (!task.equals(other.task))
+			return false;
 		return true;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "OopEx [name=" + name + ", dueDate=" + dueDate + ", task=" + task + "]";
+	}
+
 
 }
 

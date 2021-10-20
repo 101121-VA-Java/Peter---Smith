@@ -2,7 +2,10 @@ package com.revature.driver;
 
 import java.time.LocalDate;
 
+import com.revature.models.BoringTask;
+import com.revature.models.ImportantTask;
 import com.revature.models.OopEx;
+import com.revature.models.Task;
 
 public class OopExDriver {
 	public static void main(String[] args) {
@@ -29,6 +32,23 @@ public class OopExDriver {
 		System.out.println();
 		String q = student1.getName();
 		System.out.println("does student1.getname .equals harcoded Slim? " + q.equals("Slim"));
+		
+//   Add tests for the task class
+		
+		Task t = new Task("OOP Exercise1", LocalDate.of(2021, 10, 25));
+		System.out.println(t);
+		
+		student1.setTask(t);
+		System.out.println(student1);
+		student1.toString();
+		
+		ImportantTask it = new ImportantTask("Quiz", LocalDate.now());
+		it.stress();
+		System.out.println("Important task: " + it);
+		
+		BoringTask bt = new BoringTask("Quiz", LocalDate.now());
+		bt.procrastinate();
+		System.out.println("Boring task: " + bt);
 	}
 }
 
