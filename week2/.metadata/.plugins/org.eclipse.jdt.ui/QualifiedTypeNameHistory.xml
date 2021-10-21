@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.revature.models.OopEx"/>
+    <fullyQualifiedTypeName name="java.time.LocalDate"/>
+    <fullyQualifiedTypeName name="com.revature.models.Task"/>
+    <fullyQualifiedTypeName name="com.revature.models.ImportantTask"/>
+    <fullyQualifiedTypeName name="com.revature.models.BoringTask"/>
+    <fullyQualifiedTypeName name="java.lang.Math"/>
+</qualifiedTypeNameHistroy>

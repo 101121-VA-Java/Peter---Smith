@@ -367,3 +367,63 @@
 2021-10-20 16:40:33,462 [Worker-100: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
 2021-10-20 16:40:33,465 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
 2021-10-20 16:40:33,467 [Worker-100: Building] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2021-10-20 16:40:33,469 [Worker-100: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2021-10-20 20:44:34,144 [Worker-121: Update Maven projects configuration] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2021-10-20 20:44:58,806 [Worker-125: Building] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.revature.eval.java:core:1.0 @ C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\pom.xml.
+2021-10-20 20:44:59,526 [Worker-125: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-20 20:44:59,526 [Worker-125: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\main\resources
+2021-10-20 20:44:59,528 [Worker-125: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-20 20:44:59,529 [Worker-125: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\test\resources
+2021-10-20 20:45:01,067 [Worker-121: Update Maven projects configuration] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.revature.eval.java:core:1.0 @ C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\pom.xml.
+2021-10-20 20:45:01,786 [Worker-121: Update Maven projects configuration] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /java-core-peterbsmith67/src/main/java
+2021-10-20 20:45:01,927 [Worker-121: Update Maven projects configuration] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /java-core-peterbsmith67/src/test/java
+2021-10-20 20:45:04,164 [Worker-121: Update Maven projects configuration] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed: 30 sec
+2021-10-20 20:45:06,629 [Worker-125: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-20 20:45:06,630 [Worker-125: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\main\resources
+2021-10-20 20:45:06,632 [Worker-125: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-20 20:45:06,632 [Worker-125: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\test\resources
+2021-10-21 07:24:32,010 [Worker-4: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2021-10-21 08:45:34,936 [Worker-31: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 08:45:34,967 [Worker-31: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\main\resources
+2021-10-21 08:45:34,973 [Worker-31: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 08:45:34,975 [Worker-31: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\test\resources
+2021-10-21 08:47:39,155 [Worker-33: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 08:47:39,158 [Worker-33: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\main\resources
+2021-10-21 08:47:39,165 [Worker-33: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 08:47:39,167 [Worker-33: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\test\resources
+2021-10-21 08:47:53,566 [Worker-31: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 08:47:53,567 [Worker-31: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\main\resources
+2021-10-21 08:47:53,574 [Worker-31: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 08:47:53,575 [Worker-31: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\test\resources
+2021-10-21 08:54:56,867 [Worker-34: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 08:54:56,868 [Worker-34: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\main\resources
+2021-10-21 08:54:56,872 [Worker-34: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 08:54:56,873 [Worker-34: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\test\resources
+2021-10-21 09:03:51,291 [Worker-37: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 09:03:51,292 [Worker-37: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\main\resources
+2021-10-21 09:03:51,295 [Worker-37: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 09:03:51,296 [Worker-37: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\test\resources
+2021-10-21 09:04:33,108 [Worker-34: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 09:04:33,109 [Worker-34: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\main\resources
+2021-10-21 09:04:33,113 [Worker-34: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 09:04:33,114 [Worker-34: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\test\resources
+2021-10-21 09:30:04,259 [Worker-39: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 09:30:04,260 [Worker-39: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\main\resources
+2021-10-21 09:30:04,264 [Worker-39: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 09:30:04,264 [Worker-39: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\test\resources
+2021-10-21 12:00:05,974 [Worker-65: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 12:00:05,977 [Worker-65: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\main\resources
+2021-10-21 12:00:06,008 [Worker-65: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 12:00:06,009 [Worker-65: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\test\resources
+2021-10-21 12:02:06,206 [Worker-64: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 12:02:06,207 [Worker-64: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\main\resources
+2021-10-21 12:02:06,228 [Worker-64: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 12:02:06,229 [Worker-64: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\test\resources
+2021-10-21 12:04:28,902 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 12:04:28,904 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\main\resources
+2021-10-21 12:04:28,908 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 12:04:28,908 [Worker-66: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\test\resources
+2021-10-21 12:08:22,055 [Worker-67: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 12:08:22,057 [Worker-67: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\main\resources
+2021-10-21 12:08:22,061 [Worker-67: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2021-10-21 12:08:22,061 [Worker-67: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\PBS\Peter---Smith\week2\java-core-peterbsmith67\src\test\resources

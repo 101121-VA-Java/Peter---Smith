@@ -1,38 +1,38 @@
-Go line by line, and explain what's happening in each line.
+// Go line by line, and explain what's happening in each line.
 
 int score = 80; // A variable of type int and of name score is declared and is assigned a value of 80;
 
-String result;  A reference variable of type String is declared and is 
-		stored in the stack. Since the String has not been 
-		assigned a value, there is nothing
-		created in the string pool. An address of NULL 
-		is stored with the "result" string name in the stack 
+String result; // A reference variable of type String is declared and is 
+//		stored in the stack. Since the String has not been 
+//		assigned a value, there is nothing
+//		created in the string pool. An address of NULL 
+//		is stored with the "result" string name in the stack 
 
-if (score == 80) {  'If' statement checking a boolean.  If the boolean 
-			is TRUE then processing will be passed onto next line.
-			Otherwise processing continues to the 'else if' line'
+if (score == 80) { // 'If' statement checking a boolean.  If the boolean 
+//			is TRUE then processing will be passed onto next line.
+//			Otherwise processing continues to the 'else if' line'
 			
-	result = "You passed!";  "You passed" is created in the string pool
-				and the 'result' variable is updated with the 
-				pool address of the string. 
+	result = "You passed!"; // "You passed" is created in the string pool
+//				and the 'result' variable is updated with the 
+//				pool address of the string. 
 
-} else if (score > 80) {  'else if' statement comparing the 'score' variable with
-			   the value of 80.  If the value is greater than 80 
-			   then processing will be passed on to the next line.
-			   Otherwise processing continues to the 'else' line'
+} else if (score > 80) { // 'else if' statement comparing the 'score' variable with
+//			   the value of 80.  If the value is greater than 80 
+//			   then processing will be passed on to the next line.
+//			   Otherwise processing continues to the 'else' line'
 	
-	result = "You did great!";  "You did great" is created in the string pool
-				and the 'result' variable is updated with the 
-				pool address of the string. 
+	result = "You did great!"; //  "You did great" is created in the string pool
+//				and the 'result' variable is updated with the 
+//				pool address of the string. 
 
-} else {		   'else' statement that will pass the processing 
-			    to the next line
+} else {		//   'else' statement that will pass the processing 
+//			    to the next line
 	
-	result = "You did not pass. Try again!"; "You did not pass. Try again" 
-				is created in the string pool
-				and the 'result' variable is updated with the 
-				pool address of the string. 
+	result = "You did not pass. Try again!"; // "You did not pass. Try again" 
+//				is created in the string pool
+//				and the 'result' variable is updated with the 
+//				pool address of the string. 
 }
 
-System.out.println(result);  The 'result' string is sent to the SYSO processing
-				and the string is printed to the console.	     	
+System.out.println(result); // The 'result' string is sent to the SYSO processing
+//				and the string is printed to the console.	     	

@@ -1,0 +1,66 @@
+public static void main(String[] args) {   //  This is the 'main' class where the program will start executing.
+	String[] foodTypes = getFoodTypes(); // The getFoodTypes method is called and the foodTypes {"breakfast","lunch","dinner","dessert","snack"}
+//						is created in the heap and then the reference variable 'foodtypes'
+//						is created in the stack with the foodTypes' address.  This declaration starts with a string array (String[])
+//						as the getFoodTypes requires this type in its method.
+
+	String myType = foodTypes[2];	//	The foodTypes[2] string is created in the string pool with "dinner".  
+//						Then a Reference variable 'myType' is created in the heap with that string pool address
+
+	String[] foodsOfMyType = getFoodsByType(myType);	//The getFoodByMyType method is called, passing in the parameter of "dinner"
+//								The return from that method is then stored in the heap ("curry", "stirfry", "burger").  That address
+//								is stored with the reference variable foodsOfMyType in the stack
+	
+	for (String food : foodsOfMyType) { // This is an example of an enhanced For loop. It will loop through each
+	// 									food in the foodsOfMyType ("curry", "stirfry", "burger")
+		System.out.println(food);	// This will print each food to the user, with each food on a separate line
+	}
+}
+
+public static String[] getFoodTypes() { // Start of a new method that will return a string array
+//										containing the 5 foodTypes.	
+	String[] foodTypes = {"breakfast","lunch","dinner","dessert","snack"}; // The array to the right of the '=' is
+//							created in the heap.  The variable foodtypes is created in the stack along with the
+//							address of the array	
+	return foodTypes;   // This will return the array address to the user.
+}
+
+public static String[] getFoodsByType(String type) { // Start of a new method that will return a string array
+//							containing three food elements
+	String[] foods = new String[3];  A string object is instanciated in the heap with a size of 3 array elements.
+//									Then a reference variable 'food' is created in the stack containing the array address. 	
+
+	switch(type) {				// Switch control flow statement on the input parameter 'type'
+	case "breakfast":			// case where 'breakfast' was the method parameter
+		foods[0] = "pancakes";  // This string assigned to the first element
+		foods[1] = "cereal";    // This string assigned to the second element
+		foods[2] = "omelette";  // This string assigned to the third element
+		break;					// indicates processing to continue by skipping over the other cases
+	case "lunch":				// case where 'lunch' was the method parameter
+		foods[0] = "sandwich";   // This string assigned to the first element
+		foods[1] = "salad";      // This string assigned to the second element
+		foods[2] = "soup";       // This string assigned to the third element
+		break;					// indicates processing to continue by skipping over the other cases
+	case "dinner":				// case where 'dinner' was the method parameter
+		foods[0] = "curry";     // This string assigned to the first element
+		foods[1] = "stir fry";  // This string assigned to the second element
+		foods[2] = "burger";    // This string assigned to the third element
+		break;					// indicates processing to continue by skipping over the other cases
+	case "dessert":				// case where 'dessert' was the method parameter
+		foods[0] = "cake";		// This string assigned to the first element
+		foods[1] = "ice cream";	// This string assigned to the second element
+		foods[2] = "candy";		// This string assigned to the third element
+		break;					// indicates processing to continue by skipping over the other cases
+	case "snack":				// case where 'snack' was the method parameter
+		foods[0] = "chips";		// This string assigned to the first element
+		foods[1] = "apple";		// This string assigned to the second element
+		foods[2] = "samosa";	// This string assigned to the third element	
+		break;					// indicates processing to continue by skipping over the other cases
+	default:					// case where anything other than the above strings was the method parameter
+		// add your own			// comment indicating the user (programmer) can add some data
+		break;					// indicates processing to continue by skipping over the other cases 
+//		                         (not needed in this case as processing would continue to next line anyway)
+	}
+
+	return foods;		// returns the address of the string array
+}
