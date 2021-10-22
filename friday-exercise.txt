@@ -1,0 +1,28 @@
+public class Food {		// declaring a public class food
+	public String name;	// declaring reference variable 'name'.  kept in the stack with address of NULL
+	public String type;	// declaring reference variable 'type'.  kept in the stack with address of NULL
+
+	public Food(String name, String type) { // parameterized constructor with name 'Food' 
+		this.name = name;		// parameter name heap address is assigned to the curent object this.name  
+		this.type = type;		// parameter type heap address is assigned to the current obect this.type
+	}
+
+	public void cook() {			// 'cook' method with no parameters
+		if (!name.contains("cooked")) {	// If statement checking boolean on whether the name contains 'cooked'.  Will be
+						// true if name has 'cooked', false if it dows not.  Processing will continue
+						// to next line if false 
+			name = "cooked " + name;	// name is concatinated with the string 'cooked ' placed before the name.
+		}
+	}			End of method
+}
+
+public class Main {				//  Main class
+	public static void main(String[] args) { // Program execution will begin here in the main method
+		Food myFood = new Food("potato", "vegetable"); // Food object is substanciated and created in the heap
+						// with the two strings (potato and vegetable).  This address is assigned to the 
+						// reference variable myfood in the stack.  
+		myFood.cook();	// the method cook is called on the myfood object
+
+		System.out.println(myFood.name);  //the string "cooked potato" is printed to the console
+	}
+}
