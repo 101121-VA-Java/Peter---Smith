@@ -1,39 +1,47 @@
 package com.revature.services;
 
 
-import com.revature.exceptions.UserNotFoundException;
+import java.util.List;
+
+import com.revature.repositories.EmployeeDao;
+import com.revature.repositories.EmployeeList;
+import com.revature.exceptions.LoginException;
+import com.revature.exceptions.UsernameAlreadyExistsException;
 import com.revature.models.Employee;
 import com.revature.models.Role;
-import com.revature.repositories.EmployeeDao;
-import com.revature.repositories.EmployeeArray;
 
 public class EmployeeService {
 
-	private EmployeeDao ed;
+	private static EmployeeDao ed = new EmployeeList();
 	
-	public EmployeeService() {
-		super();
-		ed = new EmployeeArray();
-	}	
+	public Employee addEmployee(Employee e) throws UsernameAlreadyExistsException {
+
+		Employee newEmp = this.getEmployeeByUsername(e.getUsername());
+		if(newEmp != null) {
+			throw new UsernameAlreadyExistsException();
+		}
+		e.setRole(Role.BASIC_USER);
+		e.setManager(ed.getById(0));
+ 
+		return ed.add(e);
+	}
 	
-	public int addEmployee(Employee e) {
-		/*
-		 * add business logic here to manipulate e before storage
-		 * Employee, when registering are going to input 
-		 * 		- name
-		 * 		- Username
-		 * 		- password
-		 * 
-		 * System should assign, Role, manager
-		 * 		- manager is null by default (default value of an object is null)
-		 * 		
-		 */
+	public Employee getEmployeeByUsername(String username){
+		List<Employee> employees = ed.getAll();
+		for(Employee e : employees) {
+			if (e.getUsername().equals(username)) {
+				return e;
+			}
+		}
+		return null;
+	}
 	
-		e.setRole(Role.BASIC_USER);  
-		
-		return ed.addEmployee(e);
-			
-		
+	public Employee login(String username, String password) throws LoginException {
+		Employee emp = this.getEmployeeByUsername(username);
+		if(emp == null || !emp.getPassword().equals(password)) {
+			throw new LoginException();
+		}
+		return emp;
 	}
 
 	
