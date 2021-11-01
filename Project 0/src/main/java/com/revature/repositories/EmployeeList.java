@@ -54,7 +54,20 @@ public class EmployeeList implements EmployeeDao {
 		if (temp == null || temp.equals(t)) {
 			return false;
 		}
-		employees.set(t.getId(), t);
+//		employees.set(t.getId(), t);   this is array list
+		//TODO add logic
 		return true;
+	}
+
+	@Override
+	public boolean delete(Employee t) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<Employee> addList(Employee t) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -57,4 +57,16 @@ public class CustomerList implements CustomerDao {
 		customers.set(t.getId(), t);
 		return true;
 	}
+
+	@Override
+	public List<Customer> addList(Customer t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean delete(Customer t) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

@@ -14,8 +14,10 @@ public interface GenericDao<T> {
 	 * delete
 	 */
 
+	List<T> addList(T t);
 	T add(T t);
 	T getById(int id);
 	List<T> getAll();
 	boolean update(T t);
+	boolean delete(T t);
 }
