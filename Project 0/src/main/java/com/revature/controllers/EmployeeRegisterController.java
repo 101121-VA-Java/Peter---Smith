@@ -9,6 +9,9 @@ public class EmployeeRegisterController {
 	private static EmployeeService us = new EmployeeService();
 		
 	public static void run(Scanner sc) {
+		EmployeeService.setUp();		//TODO remove.  only for testing
+		
+		
 		System.out.println();
 		System.out.println("Please enter your name: (at least 4 char)");
 		String name = sc.nextLine();

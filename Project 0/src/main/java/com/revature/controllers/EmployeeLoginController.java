@@ -5,13 +5,15 @@ import java.util.Scanner;
 
 import com.revature.models.Employee;
 import com.revature.models.Role;
+//import com.revature.repositories.EmployeeDao;
+//import com.revature.repositories.EmployeeList;
 import com.revature.services.EmployeeService;
 
 public class EmployeeLoginController {
 
 	private static EmployeeService es = new EmployeeService();
 	private static Employee employee;
-	
+
 	public static void run(Scanner sc) {
 
 		System.out.println();
@@ -111,7 +113,7 @@ public class EmployeeLoginController {
 					+ "\n2: Pending offers for items"
 					+ "\n3: View/Add/Remove Items from inventory"
 					+ "\n4: View all payments"
-					+ "\n5: Retuen to previous menu");
+					+ "\n5: Return to previous menu");
 			String choice = sc2.nextLine();
 			switch(choice) {
 			case "1":
@@ -161,7 +163,7 @@ public class EmployeeLoginController {
 					+ "\n2: Pending offers for items"
 					+ "\n3: View/Add/Remove Items from inventory"
 					+ "\n4: View all payments"
-					+ "\n5: Retuen to previous menu");
+					+ "\n5: Return to previous menu");
 			String choice = sc2.nextLine();
 			switch(choice) {
 			case "1":
@@ -215,18 +217,30 @@ public class EmployeeLoginController {
 					+ "\n2: Pending offers for items" 
 					+ "\n3: View/Add/Remove Items from inventory"
 					+ "\n4: View all payments"
-					+ "\n5: Retuen to previous menu");
+					+ "\n5: Return to previous menu");
 			String choice = sc2.nextLine();
 			switch(choice) {
 			case "1":
 				EmployeeService es2 = new EmployeeService();
 				List<Employee> managers = es.getAllManagers();
-				for(Employee e : managers) {
-					System.out.println("Manager: " + e.getName());
-					System.out.println("Assigned Employees:");
-					List<Employee> employee = es2.getEmployeesByManager(e.getId());
-					for(Employee m : employee) {
-						System.out.println(m.getName());
+				if (managers == null) {
+					System.out.println("No assigned managers.  Here are the Employees:");
+					List<Employee> employee = es2.getAllEmployees();
+					if (employee == null) {
+						System.out.println("No assigned employees");
+					} else {
+						for(Employee m : employee) {
+							System.out.println(m.getName());
+						}	
+					}	
+				} else {
+					for(Employee e : managers) {
+						System.out.println("Manager: " + e.getName());
+						System.out.println("Assigned Employees:");
+						List<Employee> employee = es2.getEmployeesByManager(e.getId());
+						for(Employee m : employee) {
+							System.out.println(m.getName());
+						}	
 					}	
 				}	
 				System.out.println();

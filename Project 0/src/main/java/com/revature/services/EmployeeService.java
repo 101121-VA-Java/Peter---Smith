@@ -12,6 +12,40 @@ public class EmployeeService {
 
 	private static EmployeeDao ed = new EmployeeList();
 	private static EmployeeDao ed2 = new EmployeeList();
+
+	// temp code to set up employees.  all this will be replaced when we have a database to work with
+//	public static void setUp() {
+
+//		
+//		EmployeeService es2 = new EmployeeService();
+////		EmployeeDao ed = new EmployeeList();
+////		
+//		Employee newEmp0 = new Employee(7, "Peter Smith", "peterSmith", "pbs67", Role.ADMIN, null);
+//		ed.add(newEmp0);
+//		Employee newEmp2 = new Employee(2, "Frank Smith", "FSmith", "12345", Role.MANAGER, newEmp0);
+//		ed.add(newEmp2);
+//		Employee newEmp3 = new Employee(3, "Abba Jones", "AJ567", "87rty", Role.MANAGER, newEmp0);
+//		ed.add(newEmp3);
+//		Employee newEmp4 = new Employee(4, "Employee A", "EA789", "EA789", Role.BASIC_USER, newEmp2);
+//		ed.add(newEmp4);
+//		Employee newEmp5 = new Employee(5, "Employee B", "EMPB", "EMPB", Role.BASIC_USER, newEmp2);
+//		ed.add(newEmp5);
+//		Employee newEmp6 = new Employee(6, "Employee C", "EMPC", "EMPC", Role.BASIC_USER, newEmp3);
+//		ed.add(newEmp6);
+//		Employee newEmp1 = new Employee(1, "Employee D", "EMPD", "EMPD", Role.BASIC_USER, newEmp3);
+//		ed.add(newEmp1);
+//		
+//		List<Employee> managers = es2.getAllStaff();
+//		for(Employee em : managers) {
+//			System.out.println("Name: " + em.getName() + "  " + em.getRole());
+//			System.out.println();
+//		}
+//		return; 	
+//	}	
+//// ----------------------------------------------------------------- End of temp code
+		
+	
+	
 	
 	public Employee addEmployee(Employee e) {
 
@@ -20,7 +54,7 @@ public class EmployeeService {
 			return null;
 		}
 		e.setRole(Role.BASIC_USER);
-		e.setManager(ed.getById(0));   // defaulting to employee 0 which is the owner, and has code ADMIN
+		e.setManager(ed.getById(0));   // defaulting to employee 0 which is ADMIN
  
 		return ed.add(e);
 	}
@@ -39,7 +73,11 @@ public class EmployeeService {
 		List<Employee> managers = null;
 		List<Employee> employees = getAllStaff();
 		for(Employee e : employees) {
-			if (e.getRole().equals(Role.MANAGER)) {
+			System.out.println(e.getName() + "     -   " + e.getRole());          //  TODO remove.  for testing
+			System.out.println(e.getRole() == Role.MANAGER);
+			System.out.println(e.getRole().equals(Role.MANAGER));
+			if (e.getRole() == Role.MANAGER) {
+				System.out.println(e.getName());          //  TODO remove.  for testing
 				managers = ed2.addList(e);
 			}
 		}

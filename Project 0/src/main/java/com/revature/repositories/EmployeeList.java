@@ -22,7 +22,7 @@ public class EmployeeList implements EmployeeDao {
 	@Override
 	public Employee add(Employee t) {
 		// generating a new id for new employees
-		t.setId(employees.size());
+//		t.setId(employees.size());                          TODO add logic to get new id
 		// add method returns true if adding to a collection was successful
 		employees.add(t);
 		// TODO add check that add was successful
