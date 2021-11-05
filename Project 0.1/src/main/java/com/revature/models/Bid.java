@@ -2,18 +2,19 @@ package com.revature.models;
 
 public class Bid {
 
+	private int id;
 	private int price;
-    private int ownerId;
+    private int bidderId;                 // id of the customer making a bid
+//    private int itemId;                   TODO don't think i need,  will now have junction table between bid id and item id
 	
     public Bid() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Bid(int price, int ownerId) {
 		super();
 		this.price = price;
-		this.ownerId = ownerId;
+		this.bidderId = ownerId;
 	}
 
 	public int getPrice() {
@@ -25,12 +26,27 @@ public class Bid {
 	}
 
 	public int getOwnerId() {
-		return ownerId;
+		return bidderId;
 	}
 
 	public void setOwnerId(int ownerId) {
-		this.ownerId = ownerId;
+		this.bidderId = ownerId;
 	}
-    
-    
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getBidderId() {
+		return bidderId;
+	}
+
+	public void setBidderId(int bidderId) {
+		this.bidderId = bidderId;
+	}
+
 }

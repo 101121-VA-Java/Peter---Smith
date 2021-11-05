@@ -4,19 +4,19 @@ import com.revature.repositories.ItemDao;
 
 public class User {
 
-	protected static int numberOfUsers = 1;
+//	protected static int numberOfUsers = 1;     TODO do I need this?  will DB do this for me?
     private int id;
     private String name;
     private String username;
     private String password;
-    private Role role;
-    private String payment;
-    private ItemDao shoppingCart;
+   	private String role;
+    private int managerid;
+//    private ItemDao shoppingCart;   not needed.  adding junction table for this
 
     
 	public User() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public User(String username, String password) {
@@ -24,7 +24,30 @@ public class User {
 		this.username = username;
 		this.password = password;
 	}
-
+	
+	 //   To be used for employees
+	 public User(int id, String name, String username, String password, String role, int managerid) {
+			super();
+			this.id = id;
+			this.name = name;
+			this.username = username;
+			this.password = password;
+			this.role = role;
+			this.managerid = managerid;
+		}
+	 
+//     To be used for customers
+	 public User(int id, String name, String username, String password, String role,
+				ItemDao shoppingCart) {
+			super();
+			this.id = id;
+			this.name = name;
+			this.username = username;
+			this.password = password;
+			this.role = role;
+			this.shoppingCart = shoppingCart;
+		}
+	 
 	public int getId() {
 		return id;
 	}
@@ -49,11 +72,11 @@ public class User {
 		this.password = password;
 	}
 
-	public Role getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
 
@@ -65,12 +88,12 @@ public class User {
 		this.name = name;
 	}
 
-	public String getPayment() {
-		return payment;
+	public int getManagerid() {
+		return managerid;
 	}
 
-	public void setPayment(String payment) {
-		this.payment = payment;
+	public void setManagerid(int managerid) {
+		this.managerid = managerid;
 	}
 	
     
