@@ -1,6 +1,6 @@
 package com.revature.models;
 
-import com.revature.repositories.ItemDao;
+import com.revature.daos.ItemDao;
 
 public class Employee extends User{
 
@@ -11,10 +11,7 @@ public class Employee extends User{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Employee(int id, String name, String username, String password, String role) {
-		super(id, name, username, password, role);
-		// TODO Auto-generated constructor stub
-	}
+	
 	public Employee(String username, String password) {
 		super(username, password);
 		// TODO Auto-generated constructor stub

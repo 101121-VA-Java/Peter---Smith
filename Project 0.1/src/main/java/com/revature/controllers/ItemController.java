@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import java.util.List;
 import java.util.Scanner;
 import com.revature.models.Item;
 import com.revature.services.ItemService;
@@ -33,5 +34,35 @@ public class ItemController {
 			System.out.println("Item added succesfully");
 		}
 		return;
+	}
+
+
+	public void removeItem(Scanner sc) {
+		
+		System.out.println("Please enter item number to remove: ");
+		String number1 = sc.nextLine();
+		int number = Integer.parseInt(number1);
+		if(number <0) {
+			return;
+		}
+		if (is.removeItem(number) == -1) {
+			System.out.println("That item number does not exist.  Please try again ");
+		} else {
+			System.out.println("Item removed succesfully");
+		}
+		return;
+	}
+
+
+	public void viewItems() {
+		
+		List<Item> itms =  is.viewItems();
+		
+		for (Item i : itms) {
+			if (i.isOwned() == false) {
+				System.out.println(i);
+			}
+		}
+		
 	}	
 }

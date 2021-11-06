@@ -9,25 +9,24 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.revature.models.Bid;
 import com.revature.models.Item;
-import com.revature.models.User;
 import com.revature.util.ConnectionUtil;
 
-public class ItemPostgres implements GenericDao<Item> {
+public class BidPostgres implements GenericDao<Bid>{
 
 	@Override
-	public int add(Item t) {
+	public int add(Bid t) {
 		int genId = -1;
-		String sql = "insert into items (e_price, e_name, e_description, e_owned) "
-				+ "values (?, ?, ?, ?) returning e_id;";
+		String sql = "insert into bids (e_price, e_bidder_id, e_item_id) "
+				+ "values (?, ?, ?) returning e_id;";
 		
 		try(Connection con = ConnectionUtil.getConnectionFromFile()){
 			PreparedStatement ps = con.prepareStatement(sql);
 			
 			ps.setInt(1, t.getPrice());
-			ps.setString(2, t.getName());
-			ps.setString(3, t.getDescription());
-			ps.setBoolean(4, t.isOwned());
+			ps.setInt(2, t.getBidderId());
+			ps.setInt(3, t.getItemId());
 			
 			ResultSet rs = ps.executeQuery();
 
@@ -44,11 +43,10 @@ public class ItemPostgres implements GenericDao<Item> {
 	}
 
 	@Override
-	public List<Item> getAll() {
-		
-		Item itm = null;
-		String sql = "select * from items;";
-		List<Item> employees = new ArrayList<>();
+	public List<Bid> getAll() {
+		Bid bid = null;
+		String sql = "select * from bids;";
+		List<Bid> bidders = new ArrayList<>();
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()){
 			Statement s = con.createStatement();
@@ -57,56 +55,37 @@ public class ItemPostgres implements GenericDao<Item> {
 			while(rs.next()) {
 				int id = rs.getInt("e_id");
 				int price = rs.getInt("e_price");
-				String name = rs.getString("e_name");
-				String description = rs.getString("e_description");
-				Boolean owned = rs.getBoolean("e_owned");
-				
-				itm = new Item(id, price, name, description, owned); 
+				int bidderid = rs.getInt("e_bidder_id");
+				int itemid = rs.getInt("e_item_id");
 
-				employees.add(itm);
+				
+				bid = new Bid(id, price, bidderid, itemid); 
+
+				bidders.add(bid);
 			}
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		} 
-		return employees;	
-		
-		
+		return bidders;	
 	}
 
 	@Override
-	public Item getById(int id) {
+	public Bid getById(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean update(Item t) {
+	public boolean update(Bid t) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public int delete(int id) {
-	
-		String sql = "delete * from items where e_id = ? ";
-
-		int result = -1;
-		
-		try (Connection con = ConnectionUtil.getConnectionFromFile()){
-			PreparedStatement ps = con.prepareStatement(sql);
-			
-			ps.setInt(1, id); // 1 refers to the first '?'	
-			
-			result = ps.executeUpdate();
-			
-			
-		} catch (SQLException | IOException e) {
-			e.printStackTrace();
-		} 
-		return result;
-		
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	
 	
 }

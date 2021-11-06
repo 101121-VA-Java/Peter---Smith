@@ -22,7 +22,24 @@ public class Item {
 		this.price = price;
 		this.name = name;
 		this.description = description;
+		this.owned = false;
 	}
+
+	@Override
+	public String toString() {
+		return "Item [id= " + id + "\nprice= " + price + "\nname= " + name + "\ndescription= " + description + "]";
+	}
+
+
+	public Item(int id, int price, String name, String description, boolean owned) {
+		super();
+		this.id = id;
+		this.price = price;
+		this.name = name;
+		this.description = description;
+		this.owned = owned;
+	}
+
 
 	public int getId() {
 		return id;

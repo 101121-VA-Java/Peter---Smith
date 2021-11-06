@@ -1,7 +1,5 @@
 package com.revature.models;
 
-import com.revature.repositories.ItemDao;
-
 public class User {
 
 //	protected static int numberOfUsers = 1;     TODO do I need this?  will DB do this for me?
@@ -36,17 +34,6 @@ public class User {
 			this.managerid = managerid;
 		}
 	 
-//     To be used for customers
-	 public User(int id, String name, String username, String password, String role,
-				ItemDao shoppingCart) {
-			super();
-			this.id = id;
-			this.name = name;
-			this.username = username;
-			this.password = password;
-			this.role = role;
-			this.shoppingCart = shoppingCart;
-		}
 	 
 	public int getId() {
 		return id;

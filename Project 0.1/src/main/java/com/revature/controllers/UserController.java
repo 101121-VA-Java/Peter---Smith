@@ -11,6 +11,8 @@ public class UserController {
 
 	private static ItemController ic = new ItemController();
 	private static UserService us = new UserService();
+	private static BidController bc = new BidController();
+	private static User newUser;
 		
 	public static void run(Scanner sc) {
 		System.out.println();
@@ -40,7 +42,7 @@ public class UserController {
 //		employeeMenu(sc);
 //		}
 		
-		User newUser = new User(username, password);
+		newUser = new User(username, password);
 		
 		int reg = us.register(newUser);
 		
@@ -64,7 +66,7 @@ public class UserController {
 		
 		System.out.println("Please enter your password: ");
 		String password = sc.nextLine();
-		User newUser = us.Login(username, password);
+		newUser = us.Login(username, password);
 		if (newUser == null) {
 			System.out.println("Sorry, username or password does not match. ");
 		} else {
@@ -79,14 +81,45 @@ public class UserController {
 	}
 		
 	private static void CustomerMenu(Scanner sc) {
-		System.out.println("Please select from the following options:"
-				+ "\n1: View items for sale"
-				+ "\n2: Make an offer for an item"
-				+ "\n3: View my shopping cart"
-				+ "\n4: View remaining payments"
-				+ "\n5: Exit");
-//      System.out.println("6: Log out");    TODO decide if needed
 		
+		boolean empRun = true;
+		while(empRun) {
+			System.out.println("Please select from the following options:"
+					+ "\n1: View items for sale"
+					+ "\n2: Make an offer for an item"
+					+ "\n3: View my shopping cart"
+					+ "\n4: View remaining payments"
+					+ "\n5: Exit");
+	//      System.out.println("6: Log out");    TODO decide if needed
+			String choice = sc.nextLine();
+			switch(choice) {
+			case "1":
+				ic.viewItems(); 
+				break;
+			case "2":
+				bc.makeOffer(sc, newUser.getId());
+				System.out.println();
+				break;
+			case "3":
+				bc.viewBids(sc, newUser.getId());
+				System.out.println();
+				break;
+			case "4":
+				
+				UserController.run(sc);
+				 // TODO some error checking
+				System.out.println();
+				break;
+			case "5":
+				System.out.println();
+				empRun = false;
+				break;
+			default:
+				System.out.println("Invalid selection, please try again");
+				System.out.println();
+			}
+		}	
+
 	}
 
 	private static void employeeMenu(Scanner sc) {
@@ -104,35 +137,22 @@ public class UserController {
 			switch(choice) {
 			case "1":
 				ic.addItem(sc); 
-//				System.out.println("Please enter item name: ");
-//				String name = sc.nextLine();
-//				if(name.trim().length() < 1) {
-//					System.out.println("The name should be at least 1 character.");
-//					break;
-//				}
-//				System.out.println("Please enter item price: ");
-//				String price1 = sc.nextLine();
-//				int price = Integer.parseInt(price1);
-//				if(price1.trim().length() < 1 || price <=0) {
-//					break;
-//				}
-//				System.out.println("Please enter item price: ");
-//				String description = sc.nextLine();
-//
-//				Item newItem = new Item(price, name, description);
-//				if (ui.add(newItem) == -1) {  //  error adding item
-//					System.out.println("There was a problem adding the item.  Please try again ");
-//				} else {
-//					System.out.println("Item added succesfully");
-//				}
 				break;
 			case "2":
 				
-				UserController.run(sc);
 				 // TODO some error checking
 				System.out.println();
 				break;
 			case "3":
+				ic.removeItem(sc);
+				System.out.println();
+				break;
+			case "4":
+				
+				 // TODO some error checking
+				System.out.println();
+				break;
+			case "5":
 				System.out.println();
 				empRun = false;
 				break;

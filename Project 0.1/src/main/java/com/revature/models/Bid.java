@@ -5,16 +5,25 @@ public class Bid {
 	private int id;
 	private int price;
     private int bidderId;                 // id of the customer making a bid
-//    private int itemId;                   TODO don't think i need,  will now have junction table between bid id and item id
+    private int itemId;                   // id of the item
 	
     public Bid() {
 		super();
 	}
 
-	public Bid(int price, int ownerId) {
+	public Bid(int price, int bidderId, int itemId) {
 		super();
 		this.price = price;
-		this.bidderId = ownerId;
+		this.bidderId = bidderId;
+		this.setItemId(itemId);
+	}
+	
+	public Bid(int id, int price, int bidderId, int itemId) {
+		super();
+		this.id = id;
+		this.price = price;
+		this.bidderId = bidderId;
+		this.itemId = itemId;
 	}
 
 	public int getPrice() {
@@ -47,6 +56,14 @@ public class Bid {
 
 	public void setBidderId(int bidderId) {
 		this.bidderId = bidderId;
+	}
+
+	public int getItemId() {
+		return itemId;
+	}
+
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
 	}
 
 }
