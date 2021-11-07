@@ -57,15 +57,76 @@ public class BidController {
 		return;
 	}
 
-	public void viewBids(Scanner sc, int id) {
+	public void viewOpenBids(Scanner sc, int id) {
 	
-		for (Bid bds : bs.getUserBids(id)) {
-		
+		for (Bid bds : bs.getOpenBidsByUser(id)) {
 			is.getById(bds.getItemId()).toString();
 			System.out.println("Your offer price: $" + bds.getPrice());
 			System.out.println();
-		}
+		}		
 		return;
 	}
+
+	public void acceptOrRejectItem(Scanner sc) {
+		
+		for (Bid bds : bs.getHighestOfferEachItem()) {
+			
+			is.getById(bds.getItemId()).toString();
+			System.out.println("The highest offer price: $" + bds.getPrice());
+			System.out.println();
+		}
+		
+		boolean empRun = true;
+		while(empRun) {
+			System.out.println("Please select from the following options:" 
+					+ "\n1: Accept a highest offer"
+					+ "\n2: Reject a highest offer"
+					+ "\n3: Exit");
+
+			String choice = sc.nextLine();
+			switch(choice) {
+			case "1":
+				System.out.println("Please enter the number of the bid you want to accept");
+				String number1 = sc.nextLine();
+				int number = Integer.parseInt(number1);
+				if(number <0) {
+					break;
+				}
+				if (!bs.acceptBid(number)) {
+					System.out.println("Sorry, Accept Bid did not work");
+				} else {
+					System.out.println("Bid has been accepted");
+				}	
+				System.out.println();
+				break;
+			case "2":
+				System.out.println("Please enter the number of the bid you want to reject");
+				String num1 = sc.nextLine();
+				int num = Integer.parseInt(num1);
+				if(num <0) {
+					break;
+				}
+				if (!bs.rejectBid(num)) {
+					System.out.println("Sorry, rejection did not work");
+				} else {
+					System.out.println("Bid has been rejected");
+				}
+				System.out.println();
+				break;
+			case "3":	
+				System.out.println();
+				empRun = false;
+				break;
+			default:
+				System.out.println("Invalid selection, please try again");
+				System.out.println();
+			}
+		}	
+		return;	
+	
+	}
+
+	
+
 	
 }

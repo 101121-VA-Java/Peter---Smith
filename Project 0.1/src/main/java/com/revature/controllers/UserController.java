@@ -12,6 +12,7 @@ public class UserController {
 	private static ItemController ic = new ItemController();
 	private static UserService us = new UserService();
 	private static BidController bc = new BidController();
+	private static PaymentController pc = new PaymentController();
 	private static User newUser;
 		
 	public static void run(Scanner sc) {
@@ -87,9 +88,11 @@ public class UserController {
 			System.out.println("Please select from the following options:"
 					+ "\n1: View items for sale"
 					+ "\n2: Make an offer for an item"
-					+ "\n3: View my shopping cart"
-					+ "\n4: View remaining payments"
-					+ "\n5: Exit");
+					+ "\n3: View my current bids"
+					+ "\n4: View items with remaining payments"
+					+ "\n5: Make a payment"
+					+ "\n6: View past purchased items"
+					+ "\n7: Exit");
 	//      System.out.println("6: Log out");    TODO decide if needed
 			String choice = sc.nextLine();
 			switch(choice) {
@@ -101,16 +104,22 @@ public class UserController {
 				System.out.println();
 				break;
 			case "3":
-				bc.viewBids(sc, newUser.getId());
+				bc.viewOpenBids(sc, newUser.getId());
 				System.out.println();
 				break;
 			case "4":
-				
-				UserController.run(sc);
-				 // TODO some error checking
+				ic.viewOpenBalanceItems(sc,newUser.getId());
 				System.out.println();
 				break;
 			case "5":
+				pc.makePayment(sc);
+				System.out.println();
+				break;
+			case "6":
+				ic.viewPastBoughtItems(sc, newUser.getId());
+				System.out.println();
+				break;
+			case "7":
 				System.out.println();
 				empRun = false;
 				break;
@@ -139,8 +148,7 @@ public class UserController {
 				ic.addItem(sc); 
 				break;
 			case "2":
-				
-				 // TODO some error checking
+				bc.acceptOrRejectItem(sc);
 				System.out.println();
 				break;
 			case "3":

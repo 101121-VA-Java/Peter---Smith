@@ -3,6 +3,7 @@ package com.revature.controllers;
 import java.util.List;
 import java.util.Scanner;
 import com.revature.models.Item;
+import com.revature.models.Payment;
 import com.revature.services.ItemService;
 
 public class ItemController {
@@ -64,5 +65,32 @@ public class ItemController {
 			}
 		}
 		
-	}	
+	}
+
+
+	public void viewPastBoughtItems(Scanner sc, int id) {
+		
+		System.out.println("Your past items:");
+		for (Item itms : is.getPastPurchasedItemsByUserId(id)) {
+			System.out.println(itms.getName());
+			
+		}
+		
+		System.out.println();
+	}
+
+
+	public void viewOpenBalanceItems(Scanner sc, int id) {
+		
+		System.out.println("Your items with a remaining balance:");
+		for (Item itms : is.getopenBalanceItemsByUserId(id)) {
+			System.out.println(itms.getName());
+			
+		}
+		
+		System.out.println();
+		
+	}
+		
+
 }

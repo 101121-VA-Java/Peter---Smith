@@ -75,13 +75,56 @@ public class ItemPostgres implements GenericDao<Item> {
 
 	@Override
 	public Item getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select * from items where e_id = ? ";
+		Item itm = null;
+		
+		try (Connection con = ConnectionUtil.getConnectionFromFile()){
+			PreparedStatement ps = con.prepareStatement(sql);
+			
+			ps.setInt(1, id); 	
+			
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				int e_id = rs.getInt("e_id");
+				int price = rs.getInt("e_price");
+				String name = rs.getString("e_name");
+				String description = rs.getString("e_description");
+				Boolean owned = rs.getBoolean("e_owned");
+
+				
+				itm = new Item(e_id, price, name, description, owned); 
+
+			}
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+		} 
+		return itm;
 	}
 
 	@Override
 	public boolean update(Item t) {
-		// TODO Auto-generated method stub
+		String sql = "update items (e_price=?, e_name=?, e_description=?, e_owned=?) where e_id = ?;";
+//				+ "returning e_id;";
+		int rs = -1;
+		
+		try (Connection con = ConnectionUtil.getConnectionFromFile()){
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, t.getPrice());
+			ps.setString(2, t.getName());
+			ps.setString(3, t.getDescription());
+			ps.setBoolean(4, t.isOwned());
+			ps.setInt(5, t.getId()); 
+			
+			rs = ps.executeUpdate();
+			
+
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+		} 
+		if (rs > 0) {
+			return true;
+		}
 		return false;
 	}
 

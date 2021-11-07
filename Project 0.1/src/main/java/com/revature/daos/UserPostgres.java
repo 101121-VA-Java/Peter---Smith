@@ -53,7 +53,7 @@ public class UserPostgres implements GenericDao<User> {
 		try (Connection con = ConnectionUtil.getConnectionFromFile()){
 			PreparedStatement ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, id); // 1 refers to the first '?'	
+			ps.setInt(1, id); 	
 			
 			ResultSet rs = ps.executeQuery();
 			
@@ -78,7 +78,7 @@ public class UserPostgres implements GenericDao<User> {
 	@Override
 	public List<User> getAll() {
 		User emp = null;
-		String sql = "select * from employees;";
+		String sql = "select * from users;";
 		List<User> employees = new ArrayList<>();
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()){
@@ -108,7 +108,8 @@ public class UserPostgres implements GenericDao<User> {
 	@Override
 	public boolean update(User employee) {
 		
-		String sql = "update employees (e_name = ?, e_username = ?, e_password = ?, e_role = ?, e_payment = ? from employees where e_id = ? ";
+		String sql = "update users (e_name = ?, e_username = ?, e_password = ?, e_role = ?, e_manager_id = ? from employees where e_id = ?;";
+//		+ "returning e_id;";    TODO do i need?
 		int rs = -1;
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()){
@@ -118,7 +119,7 @@ public class UserPostgres implements GenericDao<User> {
 			ps.setString(3, employee.getPassword());
 			ps.setString(4, employee.getRole());
 			ps.setInt(5, employee.getManagerid());
-	
+			ps.setInt(6, employee.getId()); 
 			
 			rs = ps.executeUpdate();
 			
@@ -135,14 +136,14 @@ public class UserPostgres implements GenericDao<User> {
 
 	@Override
 	public int delete(int id) {
-		String sql = "delete * from employees where e_id = ? ";
+		String sql = "delete * from users where e_id = ? ";
 
 		int result = -1;
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()){
 			PreparedStatement ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, id); // 1 refers to the first '?'	
+			ps.setInt(1, id); 
 			
 			result = ps.executeUpdate();
 			

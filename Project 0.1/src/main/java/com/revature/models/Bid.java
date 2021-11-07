@@ -3,10 +3,11 @@ package com.revature.models;
 public class Bid {
 
 	private int id;
-	private int price;
+	private int price;						// offer price (asking price in Item object)
     private int bidderId;                 // id of the customer making a bid
     private int itemId;                   // id of the item
-	
+    private int bidStatus;					// 0 if bid is being considered, 1 if accepted, -1 if rejected
+    
     public Bid() {
 		super();
 	}
@@ -18,6 +19,15 @@ public class Bid {
 		this.setItemId(itemId);
 	}
 	
+	public Bid(int id, int price, int bidderId, int itemId, int bidStatus) {
+		super();
+		this.id = id;
+		this.price = price;
+		this.bidderId = bidderId;
+		this.itemId = itemId;
+		this.bidStatus = bidStatus;
+	}
+
 	public Bid(int id, int price, int bidderId, int itemId) {
 		super();
 		this.id = id;
@@ -64,6 +74,14 @@ public class Bid {
 
 	public void setItemId(int itemId) {
 		this.itemId = itemId;
+	}
+
+	public int getBidStatus() {
+		return bidStatus;
+	}
+
+	public void setBidStatus(int bidStatus) {
+		this.bidStatus = bidStatus;
 	}
 
 }

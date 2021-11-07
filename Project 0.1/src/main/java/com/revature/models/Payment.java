@@ -3,16 +3,30 @@ package com.revature.models;
 import java.util.Date;
 
 public class Payment {
-                            // junction table between payment and customer
-	private int id;         // junction table between payment and item.  get total price from item
+                           
+	private int id;  
+	private int itemId;
+	private int userId;
 	private int payment;    // Might be partial payment.  But might be entire price, therefore item is owned 
 	private int remainingBalance;
-	private Date lastPaymentDate;               // TODO should payment be deleted from DB when item paid in full?
+	private Date lastPaymentDate;               // TODO should payment be deleted from DB when item paid in full? nah, lets keep iy
 	
 	public Payment() {
 		super();
 	}
 	
+	
+	public Payment(int id, int itemId, int userId, int payment, int remainingBalance, Date lastPaymentDate) {
+		super();
+		this.id = id;
+		this.itemId = itemId;
+		this.userId = userId;
+		this.payment = payment;
+		this.remainingBalance = remainingBalance;
+		this.lastPaymentDate = lastPaymentDate;
+	}
+
+
 	public Payment(int payment, int remainingBalance, Date lastPaymentDate) {
 		super();
 		this.payment = payment;
@@ -43,6 +57,22 @@ public class Payment {
 	}
 	public void setLastPaymentDate(Date lastPaymentDate) {
 		this.lastPaymentDate = lastPaymentDate;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public int getItemId() {
+		return itemId;
+	}
+
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
 	}
 	
 	

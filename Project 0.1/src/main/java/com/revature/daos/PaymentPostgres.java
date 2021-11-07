@@ -7,27 +7,29 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.revature.models.Bid;
-import com.revature.models.Item;
+import com.revature.models.Payment;
 import com.revature.util.ConnectionUtil;
 
-public class BidPostgres implements GenericDao<Bid>{
+public class PaymentPostgres implements GenericDao<Payment>{
 
 	@Override
-	public int add(Bid t) {
+	public int add(Payment t) {
 		int genId = -1;
-		String sql = "insert into bids (e_price, e_bidder_id, e_item_id, e_bid_status) "
-				+ "values (?, ?, ?, ?) returning e_id;";
+		String sql = "insert into payments (e_item_id, e_user_id, e_payment, e_remaining_balance, e_last_payment_date) "
+				+ "values (?, ?, ?, ?, ?) returning e_id;";
 		
 		try(Connection con = ConnectionUtil.getConnectionFromFile()){
 			PreparedStatement ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, t.getPrice());
-			ps.setInt(2, t.getBidderId());
-			ps.setInt(3, t.getItemId());
-			ps.setInt(4, t.getBidStatus());
+			ps.setInt(1, t.getItemId());
+			ps.setInt(2, t.getUserId());
+			ps.setInt(3, t.getPayment());
+			ps.setInt(4, t.getRemainingBalance());
+			ps.setDate(5, t.getLastPaymentDate());
 			
 			ResultSet rs = ps.executeQuery();
 
@@ -44,10 +46,11 @@ public class BidPostgres implements GenericDao<Bid>{
 	}
 
 	@Override
-	public List<Bid> getAll() {
-		Bid bid = null;
-		String sql = "select * from bids;";
-		List<Bid> bidders = new ArrayList<>();
+	public List<Payment> getAll() {
+		
+		Payment pay = null;
+		String sql = "select * from payments;";
+		List<Payment> payments = new ArrayList<>();
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()){
 			Statement s = con.createStatement();
@@ -55,25 +58,27 @@ public class BidPostgres implements GenericDao<Bid>{
 			
 			while(rs.next()) {
 				int id = rs.getInt("e_id");
-				int price = rs.getInt("e_price");
-				int bidderid = rs.getInt("e_bidder_id");
 				int itemid = rs.getInt("e_item_id");
-				int bidstatus = rs.getInt("e_bid_status");
+				int userid = rs.getInt("e_user_id");
+				int payment = rs.getInt("e_payment");
+				int balance = rs.getInt("e_remaining_balance");
+				Date date = rs.getDate("e_last_payment_date");
 				
-				bid = new Bid(id, price, bidderid, itemid, bidstatus); 
+				pay = new Payment(id, itemid, userid, payment, balance, date); 
 
-				bidders.add(bid);
+				payments.add(pay);
 			}
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		} 
-		return bidders;	
+		return payments;	
 	}
 
 	@Override
-	public Bid getById(int id) {
-		String sql = "select * from bids where e_id = ? ";
-		Bid itm = null;
+	public Payment getById(int id) {
+		
+		String sql = "select * from payments where e_id = ? ";
+		Payment pay = null;
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()){
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -84,40 +89,41 @@ public class BidPostgres implements GenericDao<Bid>{
 			
 			if(rs.next()) {
 				int e_id = rs.getInt("e_id");
-				int price = rs.getInt("e_price");
-				int bidderid = rs.getInt("e_bidder_id");
 				int itemid = rs.getInt("e_item_id");
-				int bidstatus = rs.getInt("e_bid_status");
+				int userid = rs.getInt("e_user_id");
+				int payment = rs.getInt("e_payment");
+				int balance = rs.getInt("e_remaining_balance");
+				Date date = rs.getDate("e_last_payment_date");
+				
+				pay = new Payment(id, itemid, userid, payment, balance, date); 
 
 				
-				itm = new Bid(e_id, price, bidderid, itemid, bidstatus); 
-
 			}
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		} 
-		return itm;
+		return pay;
 	}
 
 	@Override
-	public boolean update(Bid t) {
-	
-		String sql = "update bids (e_price=?, e_bidder_id=?, e_item_id=?, e_bid_status=? where e_id = ?);";
-//				+ "returning e_id;";
-		
+	public boolean update(Payment t) {
+		String sql = "update bids (e_item_id=?, e_user_id=?, e_payment=?, e_remaining_balance=?, e_last_payment_date=? where e_id = ?);";
+//		+ "returning e_id;";
+
 		int rs = -1;
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()){
 			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setInt(1, t.getPrice());
-			ps.setInt(2, t.getBidderId());
-			ps.setInt(3, t.getItemId());
-			ps.setInt(4, t.getBidStatus());
-			ps.setInt(5, t.getId()); 
+			ps.setInt(1, t.getItemId());
+			ps.setInt(2, t.getUserId());
+			ps.setInt(3, t.getPayment());
+			ps.setInt(4, t.getRemainingBalance());
+			ps.setDate(5, t.getLastPaymentDate());
+			ps.setInt(6, t.getId()); 
 			
 			rs = ps.executeUpdate();
 			
-
+		
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		} 
@@ -129,14 +135,14 @@ public class BidPostgres implements GenericDao<Bid>{
 
 	@Override
 	public int delete(int id) {
-		String sql = "delete * from bids where e_id = ? ";
+		String sql = "delete * from payments where e_id = ? ";
 
 		int result = -1;
 			
 		try (Connection con = ConnectionUtil.getConnectionFromFile()){
 			PreparedStatement ps = con.prepareStatement(sql);
 				
-			ps.setInt(1, id); // 1 refers to the first '?'	
+			ps.setInt(1, id); 	
 				
 			result = ps.executeUpdate();
 				
@@ -147,5 +153,6 @@ public class BidPostgres implements GenericDao<Bid>{
 		return result;
 	}
 
+	
 	
 }
