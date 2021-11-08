@@ -129,7 +129,7 @@ public class BidPostgres implements GenericDao<Bid>{
 
 	@Override
 	public int delete(int id) {
-		String sql = "delete * from bids where e_id = ? ";
+		String sql = "delete from bids where e_id = ? ";
 
 		int result = -1;
 			

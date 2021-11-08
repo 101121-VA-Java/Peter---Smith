@@ -2,15 +2,12 @@ package com.revature.models;
 
 public class Item {
 
-//	public static int numberOfItems;         TODO i think i don't need?  nope.  i decided all ityems will be unique.  makles life easier
     private int id;
     private int price;
     private String name;
     private String description;
-    private boolean owned;               //  false implies item for sale.  true when it's sold
-//    private int bidId;                   TODO don/t need, i think.  create junction table between item and bid
-                                           //   also there will be one between bid and customer
-                                           // finally there will be another junction table between item and customer (for owned item)
+    private boolean owned;               //  false implies item for sale.  true when an offer is accepted
+
     
 	public Item() {
 		super();
@@ -27,7 +24,7 @@ public class Item {
 
 	@Override
 	public String toString() {
-		return "Item [id= " + id + "\nprice= " + price + "\nname= " + name + "\ndescription= " + description + "]";
+		return (" " + id + "   " + price + "   " + name + "      " + description);
 	}
 
 

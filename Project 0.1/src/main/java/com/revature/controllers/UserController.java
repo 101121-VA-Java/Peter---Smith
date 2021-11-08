@@ -9,7 +9,6 @@ import com.revature.services.UserService;
 
 public class UserController {
 
-	private static ItemController ic = new ItemController();
 	private static UserService us = new UserService();
 	private static BidController bc = new BidController();
 	private static PaymentController pc = new PaymentController();
@@ -36,6 +35,7 @@ public class UserController {
 			System.out.println("Your password should be at least 4 characters.");
 			return;
 		}
+		System.out.println();
 		
 //		if (FrontController.thisIsEmployee) {                               //TODO if time to implement manager                          
 //			System.out.println("Please enter your pass number given to you by hiring manager)");
@@ -43,7 +43,7 @@ public class UserController {
 //		employeeMenu(sc);
 //		}
 		
-		newUser = new User(username, password);
+		newUser = new User(name, username, password, 0);
 		
 		int reg = us.register(newUser);
 		
@@ -72,9 +72,10 @@ public class UserController {
 			System.out.println("Sorry, username or password does not match. ");
 		} else {
 			System.out.println("Welcome " + newUser.getName());
-			if (FrontController.thisIsEmployee) {
+			System.out.println();
+			if (newUser.getRole().equals("EMPLOYEE")) {
 				employeeMenu(sc);
-			}else if (FrontController.thisIsCustomer){
+			}else if (newUser.getRole().equals("CUSTOMER")){
             	CustomerMenu(sc);
        		} 
 		}
@@ -83,11 +84,12 @@ public class UserController {
 		
 	private static void CustomerMenu(Scanner sc) {
 		
+		ItemController ic = new ItemController();
 		boolean empRun = true;
 		while(empRun) {
 			System.out.println("Please select from the following options:"
 					+ "\n1: View items for sale"
-					+ "\n2: Make an offer for an item"
+					+ "\n2: Make a bid for an item"
 					+ "\n3: View my current bids"
 					+ "\n4: View items with remaining payments"
 					+ "\n5: Make a payment"
@@ -112,7 +114,7 @@ public class UserController {
 				System.out.println();
 				break;
 			case "5":
-				pc.makePayment(sc);
+				pc.makePayment(sc, newUser.getId());
 				System.out.println();
 				break;
 			case "6":
@@ -132,7 +134,8 @@ public class UserController {
 	}
 
 	private static void employeeMenu(Scanner sc) {
-	
+		
+		ItemController ic = new ItemController();
 		boolean empRun = true;
 		while(empRun) {
 			System.out.println("Please select from the following options:" 
@@ -156,8 +159,7 @@ public class UserController {
 				System.out.println();
 				break;
 			case "4":
-				
-				 // TODO some error checking
+				pc.viewAllPayments();
 				System.out.println();
 				break;
 			case "5":

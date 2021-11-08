@@ -11,7 +11,7 @@ import com.revature.models.Payment;
 public class ItemService {
 
 	ItemDao id = new ItemDao();
-	PaymentService ps = new PaymentService();
+//	PaymentService ps = new PaymentService();
 	
 	
 	public int add(Item newItem) {
@@ -38,9 +38,14 @@ public class ItemService {
 		
 	}
 
-
-	public List<Item> getPastPurchasedItemsByUserId(int id2) {
+	public boolean updateItem(Item t) {
+		return id.update(t);
 		
+	}
+
+	public List<Item> getPastPurchasedItemsByUserId(int id2) { 
+		
+		PaymentService ps = new PaymentService();		
 		List<Item> paiditems = new ArrayList<>();
 
 		for (Payment pmnt : ps.getZeroBalancePaymentsByUserId(id2)) {
@@ -51,12 +56,23 @@ public class ItemService {
 
 
 	public List<Item> getopenBalanceItemsByUserId(int id2) {
+		
+		PaymentService ps = new PaymentService();
 		List<Item> openitems = new ArrayList<>();
 
 		for (Payment pmnt : ps.getOpenBalancePaymentsByUserId(id2)) {
 			openitems.add(getById(pmnt.getItemId()));
 		}
 		return openitems;
+	}
+
+
+	public boolean markItemAsOwned(int itemId) {
+		
+		Item itm = getById(itemId);
+		itm.setOwned(true); 
+		
+		return updateItem(itm);
 	}
 	
 }

@@ -17,7 +17,7 @@ public class UserPostgres implements GenericDao<User> {
 	@Override
 	public int add(User employee) {
 		int genId = -1;
-		String sql = "insert into user (e_name, e_username, e_password, e_role, e_manager) "
+		String sql = "insert into users (e_name, e_username, e_password, e_role, e_man_id) "
 				+ "values (?, ?, ?, ?, ?) returning e_id;";
 		
 		try(Connection con = ConnectionUtil.getConnectionFromFile()){
@@ -63,7 +63,7 @@ public class UserPostgres implements GenericDao<User> {
 				String e_username = rs.getString("e_username");
 				String e_password = rs.getString("e_password");
 				String role = rs.getString("e_role");
-				int manager = rs.getInt("e_manager");
+				int manager = rs.getInt("e_man_id");
 
 				
 				emp = new User(e_id, name, e_username, e_password, role, manager); 
@@ -91,7 +91,7 @@ public class UserPostgres implements GenericDao<User> {
 				String e_username = rs.getString("e_username");
 				String e_password = rs.getString("e_password");
 				String role = rs.getString("e_role");
-				int manager = rs.getInt("e_manager");
+				int manager = rs.getInt("e_man_id");
 				
 				emp = new User(id, name, e_username, e_password, role, manager); 
 
@@ -108,7 +108,7 @@ public class UserPostgres implements GenericDao<User> {
 	@Override
 	public boolean update(User employee) {
 		
-		String sql = "update users (e_name = ?, e_username = ?, e_password = ?, e_role = ?, e_manager_id = ? from employees where e_id = ?;";
+		String sql = "update users (e_name = ?, e_username = ?, e_password = ?, e_role = ?, e_man_id = ? from employees where e_id = ?;";
 //		+ "returning e_id;";    TODO do i need?
 		int rs = -1;
 		
@@ -136,7 +136,7 @@ public class UserPostgres implements GenericDao<User> {
 
 	@Override
 	public int delete(int id) {
-		String sql = "delete * from users where e_id = ? ";
+		String sql = "delete from users where e_id = ? ";
 
 		int result = -1;
 		

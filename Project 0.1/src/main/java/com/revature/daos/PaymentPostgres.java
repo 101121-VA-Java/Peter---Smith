@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +30,7 @@ public class PaymentPostgres implements GenericDao<Payment>{
 			ps.setInt(2, t.getUserId());
 			ps.setInt(3, t.getPayment());
 			ps.setInt(4, t.getRemainingBalance());
-			ps.setDate(5, t.getLastPaymentDate());
+			ps.setObject(5, t.getLastPaymentDate());
 			
 			ResultSet rs = ps.executeQuery();
 
@@ -62,7 +63,7 @@ public class PaymentPostgres implements GenericDao<Payment>{
 				int userid = rs.getInt("e_user_id");
 				int payment = rs.getInt("e_payment");
 				int balance = rs.getInt("e_remaining_balance");
-				Date date = rs.getDate("e_last_payment_date");
+				LocalDate date = rs.getDate("e_last_payment_date").toLocalDate();
 				
 				pay = new Payment(id, itemid, userid, payment, balance, date); 
 
@@ -93,7 +94,7 @@ public class PaymentPostgres implements GenericDao<Payment>{
 				int userid = rs.getInt("e_user_id");
 				int payment = rs.getInt("e_payment");
 				int balance = rs.getInt("e_remaining_balance");
-				Date date = rs.getDate("e_last_payment_date");
+				LocalDate date = rs.getDate("e_last_payment_date").toLocalDate();
 				
 				pay = new Payment(id, itemid, userid, payment, balance, date); 
 
@@ -118,7 +119,7 @@ public class PaymentPostgres implements GenericDao<Payment>{
 			ps.setInt(2, t.getUserId());
 			ps.setInt(3, t.getPayment());
 			ps.setInt(4, t.getRemainingBalance());
-			ps.setDate(5, t.getLastPaymentDate());
+			ps.setObject(5, t.getLastPaymentDate());
 			ps.setInt(6, t.getId()); 
 			
 			rs = ps.executeUpdate();
@@ -135,7 +136,7 @@ public class PaymentPostgres implements GenericDao<Payment>{
 
 	@Override
 	public int delete(int id) {
-		String sql = "delete * from payments where e_id = ? ";
+		String sql = "delete from payments where e_id = ? ";
 
 		int result = -1;
 			

@@ -1,12 +1,10 @@
 package com.revature.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import com.revature.models.Bid;
 import com.revature.models.Item;
-import com.revature.models.User;
 import com.revature.services.BidService;
 import com.revature.services.ItemService;
 
@@ -17,7 +15,7 @@ public class BidController {
 
 	public void makeOffer(Scanner sc, int uId) {
 		
-		System.out.println("Please enter the number of the item you want to bid on");
+		System.out.println("Please enter the ID of the item you want to bid on");
 		String number1 = sc.nextLine();
 		int number = Integer.parseInt(number1);
 		if(number <0) {
@@ -31,23 +29,21 @@ public class BidController {
 			return;
 		}
 		System.out.println();
-		System.out.println("The item selected is:");
-		itm.toString();
-		System.out.println();
+		System.out.println("The item selected is " + itm.getName() + " for $" + itm.getPrice());
 		System.out.println("Is this correct? Y or N");
 		String yorn = sc.nextLine();
-		if (yorn.toLowerCase() == "n") {
+		if (yorn.toLowerCase().equals("n")) {
 			return;
 		}
 		
-		System.out.println("How much do you want to offer for " + itm.getName() + "?");
+		System.out.println("Please enter your bid");
 		String offer1 = sc.nextLine();
 		int offer = Integer.parseInt(offer1);
 		if(offer <0) {
 			System.out.println("Sorry, we can't accept that offer");
 			return;
 		}
-		
+
 		if (bs.makeBid(itm.getId(), offer, uId) == -1) {
 			System.out.println("Sorry that bid was not accepted.  Please try again");
 		} else {
@@ -57,13 +53,16 @@ public class BidController {
 		return;
 	}
 
-	public void viewOpenBids(Scanner sc, int id) {
-	
-		for (Bid bds : bs.getOpenBidsByUser(id)) {
-			is.getById(bds.getItemId()).toString();
-			System.out.println("Your offer price: $" + bds.getPrice());
-			System.out.println();
-		}		
+	public void viewOpenBids(Scanner sc, int userid) {
+		List<Bid> bds = bs.getOpenBidsByUser(userid);
+		if (bds.equals(null)) {
+			System.out.println("You have no open bids");
+		} else {
+			for (Bid bids : bds) {
+				System.out.println(is.getById(bids.getItemId()).getName() + ":  Your offer price: $" + bids.getPrice());
+				System.out.println(); 
+			}	
+		}
 		return;
 	}
 
@@ -93,7 +92,7 @@ public class BidController {
 					break;
 				}
 				if (!bs.acceptBid(number)) {
-					System.out.println("Sorry, Accept Bid did not work");
+					System.out.println("Sorry, accepting the bid did not work");
 				} else {
 					System.out.println("Bid has been accepted");
 				}	

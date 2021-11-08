@@ -28,12 +28,12 @@ public class Bid {
 		this.bidStatus = bidStatus;
 	}
 
-	public Bid(int id, int price, int bidderId, int itemId) {
+	public Bid(int price, int bidderId, int itemId, int bidStatus) {
 		super();
-		this.id = id;
 		this.price = price;
 		this.bidderId = bidderId;
 		this.itemId = itemId;
+		this.bidStatus = bidStatus;
 	}
 
 	public int getPrice() {

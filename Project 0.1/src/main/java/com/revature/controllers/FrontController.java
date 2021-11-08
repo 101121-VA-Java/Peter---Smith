@@ -22,7 +22,8 @@ public class FrontController {
 			String choice = sc.nextLine();
 			switch(choice) {
 			case "1":
-				LoginMenu(sc);
+				UserController.login(sc);
+//				LoginMenu(sc);
 				System.out.println();
 				break;
 			case "2":
@@ -41,7 +42,7 @@ public class FrontController {
 		sc.close();
 	}
 	
-private static void LoginMenu(Scanner sc2) {
+private static void LoginMenu(Scanner sc2) {            //get rid of this method
 		
 		boolean empRun = true;
 		while(empRun) {
@@ -52,12 +53,12 @@ private static void LoginMenu(Scanner sc2) {
 			String choice = sc2.nextLine();
 			switch(choice) {
 			case "1":
-				thisIsCustomer = true;
+//				thisIsCustomer = true;
 				UserController.login(sc2);
 				System.out.println();
 				break;
 			case "2":
-				thisIsEmployee = true;
+//				thisIsEmployee = true;
 				UserController.login(sc2);
 				System.out.println();
 				break;

@@ -1,15 +1,16 @@
 package com.revature.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.daos.PaymentDao;
-import com.revature.models.Item;
+//import com.revature.models.Item;
 import com.revature.models.Payment;
 
 public class PaymentService {
 
-	ItemService is = new ItemService();
+//	ItemService is = new ItemService();
 	PaymentDao pd = new PaymentDao();
 
 	public List<Payment> getZeroBalancePaymentsByUserId(int id){
@@ -51,15 +52,36 @@ public class PaymentService {
 		return null;
 	}
 
-	public void updateBalance(Payment pay, Item itm, int num) {
+	public void updateBalance(Payment pay, int num) {
 		
+		LocalDate localDate = LocalDate.now();
 		if (num >= pay.getRemainingBalance()) {
 			num = pay.getRemainingBalance();
-			itm.setOwned(true);
 			pay.setRemainingBalance(0);
 		} else {
 			pay.setRemainingBalance(pay.getRemainingBalance() - num);
 		}
-		pay.setLastPaymentDate(null);    //TODO curernt date
+		pay.setLastPaymentDate(localDate);    
+		pd.update(pay);
+	}
+
+	public Payment createNewPayment(int itemId, int userId) {
+		
+		ItemService is = new ItemService();
+		Payment newpayment = new Payment(itemId, userId, 0, is.getById(itemId).getPrice());
+		return newpayment;
+	}
+
+	public List<Payment> viewItems() {
+		
+		List<Payment> userpayments = new ArrayList<>();
+		Payment pyts = null;
+		
+		for (Payment pmnt : pd.getAll()) {
+			pyts = new Payment(pmnt.getId(), pmnt.getItemId(), pmnt.getUserId(), pmnt.getPayment(), pmnt.getRemainingBalance(), pmnt.getLastPaymentDate());
+			userpayments.add(pyts);
+		}
+		return userpayments;
+		
 	}
 }

@@ -1,22 +1,22 @@
 package com.revature.models;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Payment {
                            
 	private int id;  
 	private int itemId;
 	private int userId;
-	private int payment;    // Might be partial payment.  But might be entire price, therefore item is owned 
-	private int remainingBalance;
-	private Date lastPaymentDate;               // TODO should payment be deleted from DB when item paid in full? nah, lets keep iy
+	private int payment;               // the current payment, might be partial or entire price
+	private int remainingBalance;       // total price (from items) minus all payments
+	private LocalDate lastPaymentDate;              
 	
 	public Payment() {
 		super();
 	}
 	
 	
-	public Payment(int id, int itemId, int userId, int payment, int remainingBalance, Date lastPaymentDate) {
+	public Payment(int id, int itemId, int userId, int payment, int remainingBalance, LocalDate lastPaymentDate) {
 		super();
 		this.id = id;
 		this.itemId = itemId;
@@ -26,8 +26,16 @@ public class Payment {
 		this.lastPaymentDate = lastPaymentDate;
 	}
 
+	public Payment(int itemId, int userId, int payment, int remainingBalance) {
+		super();
+		this.itemId = itemId;
+		this.userId = userId;
+		this.payment = payment;
+		this.remainingBalance = remainingBalance;
+	}
 
-	public Payment(int payment, int remainingBalance, Date lastPaymentDate) {
+
+	public Payment(int payment, int remainingBalance, LocalDate lastPaymentDate) {
 		super();
 		this.payment = payment;
 		this.remainingBalance = remainingBalance;
@@ -52,11 +60,11 @@ public class Payment {
 	public void setRemainingBalance(int remainingBalance) {
 		this.remainingBalance = remainingBalance;
 	}
-	public Date getLastPaymentDate() {
+	public LocalDate getLastPaymentDate() {
 		return lastPaymentDate;
 	}
-	public void setLastPaymentDate(Date lastPaymentDate) {
-		this.lastPaymentDate = lastPaymentDate;
+	public void setLastPaymentDate(LocalDate localDate) {
+		this.lastPaymentDate = localDate;
 	}
 
 	public int getUserId() {

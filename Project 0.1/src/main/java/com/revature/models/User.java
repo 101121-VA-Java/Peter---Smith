@@ -23,7 +23,14 @@ public class User {
 		this.password = password;
 	}
 	
-	 //   To be used for employees
+	public User(String name, String username, String password, int managerid) {
+		super();
+		this.name = name;
+		this.username = username;
+		this.password = password;
+		this.managerid = managerid;
+	}
+
 	 public User(int id, String name, String username, String password, String role, int managerid) {
 			super();
 			this.id = id;

@@ -131,14 +131,14 @@ public class ItemPostgres implements GenericDao<Item> {
 	@Override
 	public int delete(int id) {
 	
-		String sql = "delete * from items where e_id = ? ";
+		String sql = "delete from items where e_id = ? ";
 
 		int result = -1;
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()){
 			PreparedStatement ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, id); // 1 refers to the first '?'	
+			ps.setInt(1, id); 	
 			
 			result = ps.executeUpdate();
 			
