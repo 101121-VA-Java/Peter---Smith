@@ -8,10 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import com.revature.models.Bid;
 import com.revature.models.Payment;
 import com.revature.util.ConnectionUtil;
 
@@ -108,8 +106,7 @@ public class PaymentPostgres implements GenericDao<Payment>{
 
 	@Override
 	public boolean update(Payment t) {
-		String sql = "update bids (e_item_id=?, e_user_id=?, e_payment=?, e_remaining_balance=?, e_last_payment_date=? where e_id = ?);";
-//		+ "returning e_id;";
+		String sql = "update bids set e_item_id=?, e_user_id=?, e_payment=?, e_remaining_balance=?, e_last_payment_date=? where e_id = ?;";
 
 		int rs = -1;
 		

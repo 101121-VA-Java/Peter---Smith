@@ -7,6 +7,7 @@ import com.revature.models.Bid;
 import com.revature.models.Item;
 import com.revature.services.BidService;
 import com.revature.services.ItemService;
+import com.revature.services.PaymentService;
 
 public class BidController {
 
@@ -23,9 +24,13 @@ public class BidController {
 		}
 		
 		Item itm = is.getById(number);
-		if (itm == null) {
+		if (itm.equals(null)) {
 			System.out.println("Sorry that item number does not exist");
 			System.out.println();
+			return;
+		}
+		if (itm.isOwned()) {
+			System.out.println("Sorry, that item is no longer for sale");
 			return;
 		}
 		System.out.println();
@@ -55,23 +60,23 @@ public class BidController {
 
 	public void viewOpenBids(Scanner sc, int userid) {
 		List<Bid> bds = bs.getOpenBidsByUser(userid);
-		if (bds.equals(null)) {
+
+		if (bds.isEmpty()) {
 			System.out.println("You have no open bids");
 		} else {
 			for (Bid bids : bds) {
-				System.out.println(is.getById(bids.getItemId()).getName() + ":  Your offer price: $" + bids.getPrice());
-				System.out.println(); 
+				System.out.println("Bid #" + bids.getId() + ":   " + is.getById(bids.getItemId()).getName() + ":  Your offer price: $" + bids.getPrice());
 			}	
 		}
 		return;
 	}
 
-	public void acceptOrRejectItem(Scanner sc) {
+	public void acceptOrRejectItem(Scanner sc, int userid) {
 		
-		for (Bid bds : bs.getHighestOfferEachItem()) {
+		for (Bid bds : bs.getOffersEachItem()) {
 			
-			is.getById(bds.getItemId()).toString();
-			System.out.println("The highest offer price: $" + bds.getPrice());
+            
+			System.out.println("Bid #" + bds.getId() + ": Customer ID " + bds.getBidderId() + " offered $" + bds.getPrice() + " on item ID " + bds.getItemId());
 			System.out.println();
 		}
 		
@@ -85,6 +90,7 @@ public class BidController {
 			String choice = sc.nextLine();
 			switch(choice) {
 			case "1":
+				PaymentService ps = new PaymentService();
 				System.out.println("Please enter the number of the bid you want to accept");
 				String number1 = sc.nextLine();
 				int number = Integer.parseInt(number1);
@@ -95,6 +101,7 @@ public class BidController {
 					System.out.println("Sorry, accepting the bid did not work");
 				} else {
 					System.out.println("Bid has been accepted");
+					ps.createNewPayment(number, userid);
 				}	
 				System.out.println();
 				break;

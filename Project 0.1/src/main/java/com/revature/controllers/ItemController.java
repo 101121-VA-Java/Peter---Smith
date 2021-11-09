@@ -62,9 +62,7 @@ public class ItemController {
 		System.out.println(" ID   PRICE   NAME      DESCRIPTION");
 		for (Item i : itms) {
 			if (!i.isOwned()) {
-//				System.out.println("we got here");
 				System.out.println(i.getId() + "     " + i.getPrice() + "     " + i.getName() + "        " + i.getDescription());
-//				i.toString();
 			}
 		}
 		System.out.println();
@@ -74,7 +72,7 @@ public class ItemController {
 	public void viewPastBoughtItems(Scanner sc, int id) {
 		
 		List<Item> itms = is.getPastPurchasedItemsByUserId(id);
-		if (itms.equals(null)) {
+		if (itms.isEmpty() ) {
 			System.out.println("You have not purchased any items");
 		} else {
 			System.out.println("Your past items:");
@@ -87,15 +85,16 @@ public class ItemController {
 	}
 
 
-	public void viewOpenBalanceItems(Scanner sc, int id) {
-		
-		List<Item> itms = is.getopenBalanceItemsByUserId(id);
-		if (itms.equals(null)) {
+	public void viewOpenBalanceItems(Scanner sc, int userid) {
+		PaymentController pc = new PaymentController();
+		List<Item> itms = is.getopenBalanceItemsByUserId(userid);
+		if (itms.isEmpty() ) {
 			System.out.println("You have no itmes with a remaining payment");
 		} else {
 			System.out.println("Your items with a remaining balance:");
 			for (Item items : itms) {
-				System.out.println(items.getName());
+				Payment p = pc.getPaymentByItemIdAndUserId(items.getId(), userid);
+				System.out.println("Payment #" + p.getId() + ":  "+ items.getName() + " has a balance of $" + p.getRemainingBalance());
 			}	
 		}
 		System.out.println();

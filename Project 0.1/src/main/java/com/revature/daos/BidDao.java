@@ -39,6 +39,11 @@ public class BidDao implements GenericDao<Bid>{
 		return (bp.delete(id));
 	}
 
+	public List<Bid> getAllByItem() {
+		
+		return (bp.getAllByItem());
+	}
+
 	
 	
 }

@@ -37,12 +37,6 @@ public class UserController {
 		}
 		System.out.println();
 		
-//		if (FrontController.thisIsEmployee) {                               //TODO if time to implement manager                          
-//			System.out.println("Please enter your pass number given to you by hiring manager)");
-//			int managerId = sc.nextInt();
-//		employeeMenu(sc);
-//		}
-		
 		newUser = new User(name, username, password, 0);
 		
 		int reg = us.register(newUser);
@@ -95,7 +89,7 @@ public class UserController {
 					+ "\n5: Make a payment"
 					+ "\n6: View past purchased items"
 					+ "\n7: Exit");
-	//      System.out.println("6: Log out");    TODO decide if needed
+
 			String choice = sc.nextLine();
 			switch(choice) {
 			case "1":
@@ -140,18 +134,18 @@ public class UserController {
 		while(empRun) {
 			System.out.println("Please select from the following options:" 
 					+ "\n1: Add item to the shop"
-					+ "\n2: Accept or reject the current highest offer for an item"
+					+ "\n2: Accept or reject an offer for an item"
 					+ "\n3: Remove listing"
 					+ "\n4: View all payments"
 					+ "\n5: Exit");
-//	      System.out.println("6: Log out");    TODO decide if needed
+
 			String choice = sc.nextLine();
 			switch(choice) {
 			case "1":
 				ic.addItem(sc); 
 				break;
 			case "2":
-				bc.acceptOrRejectItem(sc);
+				bc.acceptOrRejectItem(sc, newUser.getId());
 				System.out.println();
 				break;
 			case "3":

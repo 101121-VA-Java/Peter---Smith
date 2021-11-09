@@ -102,8 +102,8 @@ public class BidPostgres implements GenericDao<Bid>{
 	@Override
 	public boolean update(Bid t) {
 	
-		String sql = "update bids (e_price=?, e_bidder_id=?, e_item_id=?, e_bid_status=? where e_id = ?);";
-//				+ "returning e_id;";
+		String sql = "update bids set e_price=?, e_bidder_id=?, e_item_id=?, e_bid_status=? where e_id = ?;";
+
 		
 		int rs = -1;
 		
@@ -147,5 +147,32 @@ public class BidPostgres implements GenericDao<Bid>{
 		return result;
 	}
 
-	
+	public List<Bid> getAllByItem() {
+		
+		Bid bid = null;
+		String sql = "select * from bids group by e_item_id, e_id;";
+		List<Bid> bidders = new ArrayList<>();
+			
+		try (Connection con = ConnectionUtil.getConnectionFromFile()){
+			Statement s = con.createStatement();
+			ResultSet rs = s.executeQuery(sql);
+				
+			while(rs.next()) {
+				int id = rs.getInt("e_id");
+				int price = rs.getInt("e_price");
+				int bidderid = rs.getInt("e_bidder_id");
+				int itemid = rs.getInt("e_item_id");
+				int bidstatus = rs.getInt("e_bid_status");
+					
+				bid = new Bid(id, price, bidderid, itemid, bidstatus); 
+
+				bidders.add(bid);
+			}
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+		} 
+		return bidders;	
+	}
+
+		
 }

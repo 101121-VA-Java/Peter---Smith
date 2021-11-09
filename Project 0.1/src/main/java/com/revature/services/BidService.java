@@ -11,6 +11,7 @@ import com.revature.models.Item;
 public class BidService {
 
 	BidDao bd = new BidDao();
+	BidDao bd2 = new BidDao();
 	ItemService is = new ItemService();
 
 	public Bid getById(int number) {
@@ -68,94 +69,27 @@ public class BidService {
 		return userbids;
 	}
 
-	public List<Bid> getHighestOfferEachItem() {
+	public List<Bid> getOffersEachItem() {
 		
-//		int biditemid = -1;
-		boolean firsttime = true;
-		boolean add = false;
-		int price;
 		List<Bid> highbids = new ArrayList<>(); 
 		Bid hbids = null;
-		for (Bid bdr : getAllOpenBids()) {
-			System.out.println("11111");
-			price = 0;
-//			add = false;
-			for (Bid bddr : getBidsByItem(bdr.getItemId())) {
-//				add = false;
-				System.out.println("22222");
-				if (bddr.getPrice() > price) {
-					System.out.println("333333");
-					price = bddr.getPrice();
-					hbids = new Bid(bddr.getId(), bddr.getPrice() , bddr.getOwnerId(), bddr.getItemId()); 
-//					add = true;
-//					biditemid = bddr.getItemId();
-				}
-			}
-			if (firsttime) {
-				System.out.println("44444");
+		for (Bid bdr : bd.getAllByItem()) {
+			if (bdr.getBidStatus() == 0) {
+				hbids = new Bid(bdr.getId(), bdr.getPrice() , bdr.getOwnerId(), bdr.getItemId(), bdr.getBidStatus()); 
 				highbids.add(hbids);
-				
-				firsttime = false;
-			} else {
-//				if (add) {1
-				add = true;
-//					System.out.println("55555");
-//					for (Bid bidr : highbids) {
-//						System.out.println("66666");
-//						System.out.println(bidr);
-//						if (bidr.getItemId() == bdr.getItemId()) {
-//							System.out.println("77777");
-//							add = false;	
-//						}
-//					}
-					if (add) {
-						System.out.println("88888");
-						highbids.add(hbids);
-					}
-//				}
 			}
 			
 		}
 		return highbids;
-		
-	}
-	
-	public List<Bid> getAllOpenBids() {
-		
-		List<Bid> allopenbids = new ArrayList<>(); 
-		Bid hbids = null;
-		for (Bid bdr : bd.getAll()) {
-			if(bdr.getBidStatus() == 0) {
-				System.out.println("0000");
-				hbids = new Bid(bdr.getId(), bdr.getPrice() , bdr.getOwnerId(), bdr.getItemId()); 
- 				allopenbids.add(hbids);
-			}
-		}
-		return allopenbids;
-	}
-	
-	public List<Bid> getBidsbyItem(int itemId) {
-		
-		List<Bid> highbids = new ArrayList<>(); 
-		Bid hbids = null;
-		System.out.println("656565");
-		for (Bid bdr : bd.getAll()) {
-			System.out.println("121212");
-			System.out.println(bdr.getItemId());
-			System.out.println(itemId);
-			if(bdr.getItemId() == itemId) {
-				System.out.println("99999");
-				hbids = new Bid(bdr.getId(), bdr.getPrice() , bdr.getOwnerId(), itemId); 
- 				highbids.add(hbids);
-			}
-		}
-		return highbids;
-		
-	}
+	}	
+
 
 	public boolean rejectBid(int num) {
 		
 		Bid rejectbid = bd.getById(num);
+		if (rejectbid.getBidStatus() == 1) {  // if this item has already been accepted, do not reject
+			return false;
+		}
 		rejectbid.setBidStatus(-1);
 		return bd.update(rejectbid);
 		
@@ -170,7 +104,7 @@ public class BidService {
 		}
 		acceptbid.setBidStatus(1);
 		if (bd.update(acceptbid)) {
-			is.markItemAsOwned(acceptbid.getItemId());              //  Bid has been accepted, mark the item as 'owned'
+			is.markItemAsOwned(acceptbid.getItemId(), acceptbid.getPrice());              //  Bid has been accepted, mark the item as 'owned'
 			if (markBidsAsRejected(acceptbid.getItemId())) {
 				return true;
 			}

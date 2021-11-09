@@ -11,7 +11,6 @@ import com.revature.models.Payment;
 public class ItemService {
 
 	ItemDao id = new ItemDao();
-//	PaymentService ps = new PaymentService();
 	
 	
 	public int add(Item newItem) {
@@ -67,10 +66,11 @@ public class ItemService {
 	}
 
 
-	public boolean markItemAsOwned(int itemId) {
+	public boolean markItemAsOwned(int itemId, int newprice) {
 		
 		Item itm = getById(itemId);
 		itm.setOwned(true); 
+		itm.setPrice(newprice);
 		
 		return updateItem(itm);
 	}

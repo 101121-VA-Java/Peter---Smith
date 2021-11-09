@@ -10,7 +10,6 @@ import com.revature.models.Payment;
 
 public class PaymentService {
 
-//	ItemService is = new ItemService();
 	PaymentDao pd = new PaymentDao();
 
 	public List<Payment> getZeroBalancePaymentsByUserId(int id){
@@ -84,4 +83,21 @@ public class PaymentService {
 		return userpayments;
 		
 	}
+
+	public Payment getPaymentByItemIdAndUserId(int itemid, int userid) {
+		
+		for (Payment pmnt : pd.getAll()) {
+			if (pmnt.getItemId() == itemid && pmnt.getUserId() == userid) {
+				return pmnt;
+				
+			}
+		}
+		return null;
+	}
+
+	public Payment getPaymentbyId(int number) {
+		
+		return pd.getById(number);
+	}
+
 }

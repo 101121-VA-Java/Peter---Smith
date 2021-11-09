@@ -108,8 +108,8 @@ public class UserPostgres implements GenericDao<User> {
 	@Override
 	public boolean update(User employee) {
 		
-		String sql = "update users (e_name = ?, e_username = ?, e_password = ?, e_role = ?, e_man_id = ? from employees where e_id = ?;";
-//		+ "returning e_id;";    TODO do i need?
+		String sql = "update users set e_name = ?, e_username = ?, e_password = ?, e_role = ?, e_man_id = ? where e_id = ?;";
+
 		int rs = -1;
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()){

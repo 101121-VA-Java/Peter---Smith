@@ -104,8 +104,8 @@ public class ItemPostgres implements GenericDao<Item> {
 
 	@Override
 	public boolean update(Item t) {
-		String sql = "update items (e_price=?, e_name=?, e_description=?, e_owned=?) where e_id = ?;";
-//				+ "returning e_id;";
+		String sql = "update items set e_price=?, e_name=?, e_description=?, e_owned=? where e_id = ?;";
+
 		int rs = -1;
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()){
