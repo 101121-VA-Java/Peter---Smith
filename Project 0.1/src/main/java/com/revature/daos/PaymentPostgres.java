@@ -106,7 +106,7 @@ public class PaymentPostgres implements GenericDao<Payment>{
 
 	@Override
 	public boolean update(Payment t) {
-		String sql = "update bids set e_item_id=?, e_user_id=?, e_payment=?, e_remaining_balance=?, e_last_payment_date=? where e_id = ?;";
+		String sql = "update payments set e_item_id=?, e_user_id=?, e_payment=?, e_remaining_balance=?, e_last_payment_date=? where e_id = ?;";
 
 		int rs = -1;
 		

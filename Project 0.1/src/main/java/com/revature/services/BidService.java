@@ -2,16 +2,12 @@ package com.revature.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
 import com.revature.daos.BidDao;
 import com.revature.models.Bid;
-import com.revature.models.Item;
 
 public class BidService {
 
 	BidDao bd = new BidDao();
-	BidDao bd2 = new BidDao();
 	ItemService is = new ItemService();
 
 	public Bid getById(int number) {
@@ -87,6 +83,9 @@ public class BidService {
 	public boolean rejectBid(int num) {
 		
 		Bid rejectbid = bd.getById(num);
+		if (rejectbid == null) {
+			return false;
+		}
 		if (rejectbid.getBidStatus() == 1) {  // if this item has already been accepted, do not reject
 			return false;
 		}
@@ -96,30 +95,30 @@ public class BidService {
 		
 	}
 
-	public boolean acceptBid(int number) {
+	public Bid acceptBid(int number) {
 		
 		Bid acceptbid = bd.getById(number);
-		if (acceptbid.equals(null)) {
-			return false;
+		if (acceptbid == null) {
+			return null;
 		}
 		acceptbid.setBidStatus(1);
 		if (bd.update(acceptbid)) {
 			is.markItemAsOwned(acceptbid.getItemId(), acceptbid.getPrice());              //  Bid has been accepted, mark the item as 'owned'
-			if (markBidsAsRejected(acceptbid.getItemId())) {
-				return true;
-			}
+			markBidsAsRejected(acceptbid.getItemId());
+			return acceptbid;
 		}
 				
-		return false;
+		return null;
 		
 	}
 
-	private boolean markBidsAsRejected(int itemId) {
+	public boolean markBidsAsRejected(int itemId) {
 		
 		boolean result = true;
 		for (Bid bdr : bd.getAll()) {
 			if(bdr.getItemId() == itemId && bdr.getBidStatus() != 1) {
 				bdr.setBidStatus(-1);
+				result = true;
 				if (!bd.update(bdr)) {
 					result = false;
 				}

@@ -51,24 +51,25 @@ public class PaymentService {
 		return null;
 	}
 
-	public void updateBalance(Payment pay, int num) {
+	public boolean updateBalance(Payment pay, int amount) {
 		
 		LocalDate localDate = LocalDate.now();
-		if (num >= pay.getRemainingBalance()) {
-			num = pay.getRemainingBalance();
+		if (amount >= pay.getRemainingBalance()) {
+			amount = pay.getRemainingBalance();
 			pay.setRemainingBalance(0);
 		} else {
-			pay.setRemainingBalance(pay.getRemainingBalance() - num);
+			pay.setRemainingBalance(pay.getRemainingBalance() - amount);
 		}
 		pay.setLastPaymentDate(localDate);    
-		pd.update(pay);
+		return pd.update(pay);
 	}
 
-	public Payment createNewPayment(int itemId, int userId) {
+	public int createNewPayment(int bidId, int userId) {
 		
-		ItemService is = new ItemService();
-		Payment newpayment = new Payment(itemId, userId, 0, is.getById(itemId).getPrice());
-		return newpayment;
+		BidService bs = new BidService();
+		Payment newpayment = new Payment(bs.getById(bidId).getItemId() , userId, 0, bs.getById(bidId).getPrice(), LocalDate.now());
+		return pd.add(newpayment);
+		
 	}
 
 	public List<Payment> viewItems() {

@@ -11,6 +11,7 @@ import com.revature.services.PaymentService;
 public class PaymentController {
 
 	PaymentService ps = new PaymentService();
+
 	
 	public void makePayment(Scanner sc, int userid) {
 
@@ -32,7 +33,7 @@ public class PaymentController {
 			return;
 		}
 		Item itm = is.getById(pay.getItemId());
-		System.out.println("The total price is $" + itm.getPrice() + " and the remaining balance is: " + pay.getRemainingBalance());
+		System.out.println("The total price is $" + itm.getPrice() + " and the remaining balance is $" + pay.getRemainingBalance());
 		System.out.println("Please enter the amount of the payment");
 		String num1 = sc.nextLine();
 		int num = Integer.parseInt(num1);
@@ -41,7 +42,11 @@ public class PaymentController {
 			return;
 		}
 
-		ps.updateBalance(pay, num);
+		if (ps.updateBalance(pay, num)) {
+			System.out.println("Thank you for your payment");
+		} else {
+			System.out.println("Sorry your payment was not accepted");
+		}
 		
 		
 	}
@@ -51,7 +56,9 @@ public class PaymentController {
 		List<Payment> pmts =  ps.viewItems();
 		
 		for (Payment i : pmts) {
-				System.out.println(i);
+			if(i.getPayment() != 0) {
+				System.out.println("Payment #" + i.getId() + "  By customer #" + i.getUserId() + " paid $" + i.getPayment());
+			}
 		}
 		if (pmts.isEmpty()) {
 			System.out.println("There are no payments at this time");

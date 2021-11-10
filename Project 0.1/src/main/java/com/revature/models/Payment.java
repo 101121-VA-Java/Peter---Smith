@@ -16,6 +16,16 @@ public class Payment {
 	}
 	
 	
+	public Payment(int itemId, int userId, int payment, int remainingBalance, LocalDate lastPaymentDate) {
+		super();
+		this.itemId = itemId;
+		this.userId = userId;
+		this.payment = payment;
+		this.remainingBalance = remainingBalance;
+		this.lastPaymentDate = lastPaymentDate;
+	}
+
+
 	public Payment(int id, int itemId, int userId, int payment, int remainingBalance, LocalDate lastPaymentDate) {
 		super();
 		this.id = id;

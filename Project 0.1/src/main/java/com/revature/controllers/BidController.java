@@ -24,7 +24,8 @@ public class BidController {
 		}
 		
 		Item itm = is.getById(number);
-		if (itm.equals(null)) {
+//		if (itm.equals(null)) {
+		if (itm == null) {			
 			System.out.println("Sorry that item number does not exist");
 			System.out.println();
 			return;
@@ -74,17 +75,15 @@ public class BidController {
 	public void acceptOrRejectItem(Scanner sc, int userid) {
 		
 		for (Bid bds : bs.getOffersEachItem()) {
-			
             
 			System.out.println("Bid #" + bds.getId() + ": Customer ID " + bds.getBidderId() + " offered $" + bds.getPrice() + " on item ID " + bds.getItemId());
-			System.out.println();
 		}
 		
 		boolean empRun = true;
 		while(empRun) {
 			System.out.println("Please select from the following options:" 
-					+ "\n1: Accept a highest offer"
-					+ "\n2: Reject a highest offer"
+					+ "\n1: Accept an offer"
+					+ "\n2: Reject an offer"
 					+ "\n3: Exit");
 
 			String choice = sc.nextLine();
@@ -97,11 +96,12 @@ public class BidController {
 				if(number <0) {
 					break;
 				}
-				if (!bs.acceptBid(number)) {
+				Bid b = bs.acceptBid(number);
+				if (b == null) {
 					System.out.println("Sorry, accepting the bid did not work");
 				} else {
 					System.out.println("Bid has been accepted");
-					ps.createNewPayment(number, userid);
+					ps.createNewPayment(number, b.getBidderId());
 				}	
 				System.out.println();
 				break;

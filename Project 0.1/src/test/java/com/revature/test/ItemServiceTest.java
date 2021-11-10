@@ -2,11 +2,13 @@ package com.revature.test;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import com.revature.models.Item;
@@ -14,25 +16,11 @@ import com.revature.services.ItemService;
 
 public class ItemServiceTest {
 
-	private static ItemService is;
-	
-	 @Test
-	    void removeItem() {
-	        int before = is.viewItems().size();
-	        is.removeItem(1);
-	        int after = is.viewItems().size();
-	        assertNotEquals(before, after);
-	    }
+	private static ItemService is = new ItemService();
 
-//	 @Test
-//	 void add() {
-//	        Item newItem = new Item(400, "name1", "description");
-//	        int expected = is.viewItems().size() + ObjectSizeFetcher.getObjectSize(new Item());
-//	        is.add(newItem);
-//	        int actual = is.viewItems().size();
-//	        assertNotEquals(expected, actual);
-//	    }
-	 
+	
+
+	 @Order(1)
 	 @Test 
 	    void add() {
 	        int before = is.viewItems().size();
@@ -41,6 +29,16 @@ public class ItemServiceTest {
 	        assertNotEquals(before, after);
 	    }
 	 
+	 @Order(2)
+	 @Test
+	    void removeItem() {
+	        int before = is.viewItems().size();
+	        is.removeItem(16);
+	        int after = is.viewItems().size();
+	        assertNotEquals(before, after);
+	    }
+
+	 @Order(3)
 	 @Test 
 	    void getById() {
 //	        Item before = (15, 833, "Backhoe", "Green", true);
@@ -53,6 +51,7 @@ public class ItemServiceTest {
 	         );
 	    }
 	 
+	 @Order(4)
 	 @Test 
 	    void updateItem() {
 		 	Item n = is.getById(3);
@@ -74,11 +73,24 @@ public class ItemServiceTest {
 //	         );
 //	    }
 	 
+	 @Order(5)
 	 @Test 
 	    void markItemAsOwned() {
 	        assertTrue(is.markItemAsOwned(3, 400));
 	    }
-
 	 
+	 @Order(6)
+	 @Test 
+	 void getOpenBalanceItemsByUserId() {
+		 	List<Item> n = is.getopenBalanceItemsByUserId(0);
+		 	assertTrue(n.isEmpty());
+	    }
 	 
-}
+	 @Order(7)
+	 @Test 
+	 void getPastPurchasedItemsByUserId() {
+		 	List<Item> n = is.getPastPurchasedItemsByUserId(0);
+		 	assertTrue(n.isEmpty());
+	    }
+	 
+	}

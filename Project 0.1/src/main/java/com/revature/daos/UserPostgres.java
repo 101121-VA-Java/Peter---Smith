@@ -125,7 +125,7 @@ public class UserPostgres implements GenericDao<User> {
 			
 
 		} catch (SQLException | IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		} 
 		if (rs > 0) {
 			return true;
@@ -149,7 +149,7 @@ public class UserPostgres implements GenericDao<User> {
 			
 			
 		} catch (SQLException | IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		} 
 		return result;
 		
