@@ -9,19 +9,21 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.management.relation.Role;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
+import com.revature.models.ErsRoles;
 import com.revature.models.ErsUsers;
 import com.revature.util.ConnectionUtil;
 
 
-public class UserPostgres implements GenericDao{
+public class UserPostgres implements GenericDao<ErsUsers>{
 	private static Logger log = LogManager.getRootLogger();
 	
 	@Override
 	public List<ErsUsers> getAll() {
-		String sql = "select * from ers_users;";                //TODO add join to get role object id
+		String sql = "select * from ers_users;";                //TODO add join to get role object id and role
 		List<ErsUsers> users = new ArrayList<>();
 		
 		try (Connection connect = ConnectionUtil.getConnectionFromFile()) {
@@ -35,7 +37,9 @@ public class UserPostgres implements GenericDao{
 				String username = rs.getString("u_username");
 				String password = rs.getString("u_password");
 				String email = rs.getString("u_email");
-				int role = rs.getInt("u_role");
+//				int roleId = rs.getInt("r_id");
+				String role = rs.getString("r_role");
+
 				
 				ErsUsers emp = new ErsUsers(id, firstName, lastName,username,password,email,role);    //TODO change role to get role object
 				users.add(emp);
@@ -142,5 +146,6 @@ public class UserPostgres implements GenericDao{
 	}
 
 	
+
 
 }

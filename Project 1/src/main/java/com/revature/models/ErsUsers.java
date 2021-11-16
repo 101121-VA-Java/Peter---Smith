@@ -27,29 +27,17 @@ public class ErsUsers {
 		this.role = role;
 	}
 	
-	public ErsUsers(int id, String username, String password, String firstName, String lastName, String email,
-			int role) {
-		super();
-		Id = id;
-		this.username = username;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-	
-	}
-	
 	
 
-	
 
-	public ErsUsers(String username, String password, String firstName, String lastName, String email, int role) {
+	public ErsUsers(String username, String password, String firstName, String lastName, String email, ErsRoles role) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.role = role;
 	}
 
 	public int getId() {

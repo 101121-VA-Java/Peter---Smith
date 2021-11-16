@@ -1,14 +1,16 @@
 package com.revature.models;
 
+import java.sql.Blob;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 public class ErsReimbursement {
 	private int id;
 	private double amount;
-	private boolean submitted;
-	private boolean resolved;
+	private Timestamp submitted;
+	private Timestamp resolved;
 	private String description;
-	private String recipt;
+	private Blob recipt;
 	private ErsUsers author;
 	private ErsUsers resolver;
 	private ErsStatus status_Id;
@@ -19,9 +21,8 @@ public class ErsReimbursement {
 		super();
 	}
 
-
-	public ErsReimbursement(int id, double amount, boolean submitted, boolean resolved, String description, String recipt,
-			ErsUsers author, ErsUsers resolver, ErsStatus status_Id, ErsType type_Id) {
+	public ErsReimbursement(int id, double amount, Timestamp submitted, Timestamp resolved, String description,
+			Blob recipt, ErsUsers author, ErsUsers resolver, ErsStatus status_Id, ErsType type_Id) {
 		super();
 		this.id = id;
 		this.amount = amount;
@@ -56,25 +57,24 @@ public class ErsReimbursement {
 	}
 
 
-	public boolean isSubmitted() {
+	public Timestamp isSubmitted() {
 		return submitted;
 	}
 
 
-	public void setSubmitted(boolean submitted) {
+	public void setSubmitted(Timestamp submitted) {
 		this.submitted = submitted;
 	}
 
 
-	public boolean isResolved() {
+	public Timestamp isResolved() {
 		return resolved;
 	}
 
 
-	public void setResolved(boolean resolved) {
+	public void setResolved(Timestamp resolved) {
 		this.resolved = resolved;
 	}
-
 
 	public String getDescription() {
 		return description;
@@ -86,12 +86,12 @@ public class ErsReimbursement {
 	}
 
 
-	public String getRecipt() {
+	public Blob getRecipt() {
 		return recipt;
 	}
 
 
-	public void setRecipt(String recipt) {
+	public void setRecipt(Blob recipt) {
 		this.recipt = recipt;
 	}
 
