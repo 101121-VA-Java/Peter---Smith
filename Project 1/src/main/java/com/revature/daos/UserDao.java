@@ -6,34 +6,35 @@ import com.revature.models.ErsUsers;
 
 public class UserDao implements GenericDao<ErsUsers>{
 
+	private UserPostgres up = new UserPostgres();
+	
 	@Override
 	public int add(ErsUsers t) {
-		// TODO Auto-generated method stub
-		return 0;
+		return up.add(t);
 	}
 
 	@Override
 	public List<ErsUsers> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return up.getAll();
+		}
 
 	@Override
 	public ErsUsers getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return up.getById(id);
 	}
 
 	@Override
 	public boolean update(ErsUsers t) {
-		// TODO Auto-generated method stub
-		return false;
+		return up.update(t);
 	}
 
 	@Override
 	public int delete(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return up.delete(id);
 	}
 
+	public ErsUsers getUserByUsernameAndPassword(String username, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

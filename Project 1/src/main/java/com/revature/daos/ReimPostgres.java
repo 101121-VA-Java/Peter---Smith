@@ -9,22 +9,21 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-//import javax.management.relation.Role;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.revature.models.ErsReimbursement;
 import com.revature.models.ErsRoles;
 import com.revature.models.ErsUsers;
 import com.revature.util.ConnectionUtil;
 
-
-public class UserPostgres implements GenericDao<ErsUsers>{
+public class ReimPostgres implements GenericDao<ErsReimbursement>{
 	private static Logger log = LogManager.getRootLogger();
 	
 	@Override
-	public List<ErsUsers> getAll() {
-		String sql = "select * from ers_users join ers_roles on ers_users.e_role_id = ers_roles.r_id;";                
-		List<ErsUsers> users = new ArrayList<>();
+	public List<ErsReimbursement> getAll() {
+		String sql = "select * from ers_reimb join ers_users on ers_users.e_role_id = ers_roles.r_id;";                
+		List<ErsReimbursement> reimbs = new ArrayList<>();
 		
 		try (Connection connect = ConnectionUtil.getConnectionFromFile()) {
 			Statement ps = connect.createStatement();
@@ -41,21 +40,22 @@ public class UserPostgres implements GenericDao<ErsUsers>{
 				String role = rs.getString("r_role");
 
 				
-				ErsUsers emp = new ErsUsers(id, firstName, lastName,username,password,email, new ErsRoles(roleId,role));    
-				users.add(emp);
+//				ErsReimbursement emp = new ErsReimbursement(id, amount, submitted, resolved, description, email, receipt, new ErsUsers(roleId,role));    
+//				reimbs.add(emp);
 				}
 		
 		} catch (SQLException |IOException e) {
 			log.error("Error while trying to get item.");
 			e.printStackTrace();
 		} 
-	return users;
+	return reimbs;
 	}
 
 	@Override
-	public ErsUsers getById(int id) {
-		String sql = "select * from ers_users join ers_roles on ers_users.e_role_id = ers_roles.r_id where e_id = ? ";   	
-		ErsUsers emp = null;
+	public ErsReimbursement getById(int id) {
+		String sql = "select * from ers_reimb as a join ers_users as x on a.b_role_id = x.r_id, a.b_resolver_id = x.r_id, "
+				+ "join ers_status on a.b_status_id = ers_status.s_id, join ers_type on a.b_trype_id = ers_type.t_id where a.e_id = ? ";   	
+		ErsReimbursement reim = null;
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -75,31 +75,34 @@ public class UserPostgres implements GenericDao<ErsUsers>{
 				String role = rs.getString("r_role");
 
 				
-				emp = new ErsUsers(id, firstName, lastName,username,password,email, new ErsRoles(roleId,role));    
+//				reim = new ErsReimbursement(id, firstName, lastName,username,password,email, new ErsRoles(roleId,role));    
 
 				
 			}
 		}catch (SQLException | IOException e) {
 			e.printStackTrace();
 		}
-		return emp;
+		return reim;
 	}
 
 	@Override
-	public int add(ErsUsers user) {
+	public int add(ErsReimbursement reim) {
 		int genId = -1;
-		String sql = "insert into ers_users (e_username, e_password, e_firstname, e_lastname, e_email, e_role_id) "
-				+ "values (?, ?, ?, ?, ?, ?) returning e_id;";
+		String sql = "insert into ers_reimb (b_amount, b_submitted, b_resolved, b_description, b_receipt, b_author_id, b_resolver_id, b_status_id, b_type_id) "
+				+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?) returning e_id;";
 		
 		try(Connection con = ConnectionUtil.getConnectionFromFile()){
 			PreparedStatement ps = con.prepareStatement(sql);
 			
-			ps.setString(1, user.getFirstName());
-			ps.setString(2, user.getLastName());
-			ps.setString(3, user.getUsername());
-			ps.setString(4, user.getPassword());
-			ps.setString(5, user.getEmail());
-			ps.setInt(6, user.getRole().getId());
+			ps.setDouble(1, reim.getAmount());
+			ps.setTimestamp(2, reim.isSubmitted());
+			ps.setTimestamp(3, reim.isResolved());
+			ps.setString(4, reim.getDescription());
+			ps.setBlob(5, reim.getRecipt());
+			ps.setInt(6, reim.getAuthor().getId());              
+			ps.setInt(7, reim.getResolver().getId()); 
+			ps.setInt(8, reim.getErsStatus().getId()); 
+			ps.setInt(9, reim.getErsType().getId());
 			
 			ResultSet rs = ps.executeQuery();
 
@@ -116,19 +119,24 @@ public class UserPostgres implements GenericDao<ErsUsers>{
 	}
 
 	@Override
-	public boolean update(ErsUsers user) {
-		String sql = "update ers_users set e_first_name = ?, e_last_name = ?, e_username = ?, e_password = ?, e_email = ?, e_role_id = ?" + "Where e_id = ?;";
+	public boolean update(ErsReimbursement reim) {
+		String sql = "update ers_reimb set b_amount = ?, b_submitted = ?, b_resolved = ?, b_description = ?, b_receipt = ?, "
+				+ "b_author_id = ?,  b_resolver_id = ?, b_status_id = ?, b_type_id = ?" + "Where b_id = ?;";
 		int rowsChanged = -1;
 		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
 
-			ps.setString(1, user.getFirstName());
-			ps.setString(2, user.getLastName());
-			ps.setString(3, user.getUsername());
-			ps.setString(4, user.getPassword());
-			ps.setString(5, user.getEmail());
-			ps.setInt(6, user.getRole().getId());              
+			ps.setDouble(1, reim.getAmount());
+			ps.setTimestamp(2, reim.isSubmitted());
+			ps.setTimestamp(3, reim.isResolved());
+			ps.setString(4, reim.getDescription());
+			ps.setBlob(5, reim.getRecipt());
+			ps.setInt(6, reim.getAuthor().getId());              
+			ps.setInt(7, reim.getResolver().getId()); 
+			ps.setInt(8, reim.getErsStatus().getId()); 
+			ps.setInt(9, reim.getErsType().getId());
+			ps.setInt(10, reim.getId());
 			
 			rowsChanged = ps.executeUpdate();
 			
@@ -149,6 +157,5 @@ public class UserPostgres implements GenericDao<ErsUsers>{
 	}
 
 	
-
 
 }

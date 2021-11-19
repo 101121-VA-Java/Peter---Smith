@@ -13,8 +13,8 @@ public class ErsReimbursement {
 	private Blob recipt;
 	private ErsUsers author;
 	private ErsUsers resolver;
-	private ErsStatus status_Id;
-	private ErsType type_Id;
+	private ErsStatus status;
+	private ErsType type;
 	
 	
 	public ErsReimbursement() {
@@ -22,7 +22,7 @@ public class ErsReimbursement {
 	}
 
 	public ErsReimbursement(int id, double amount, Timestamp submitted, Timestamp resolved, String description,
-			Blob recipt, ErsUsers author, ErsUsers resolver, ErsStatus status_Id, ErsType type_Id) {
+			Blob recipt, ErsUsers author, ErsUsers resolver, ErsStatus status, ErsType type) {
 		super();
 		this.id = id;
 		this.amount = amount;
@@ -32,8 +32,8 @@ public class ErsReimbursement {
 		this.recipt = recipt;
 		this.author = author;
 		this.resolver = resolver;
-		this.status_Id = status_Id;
-		this.type_Id = type_Id;
+		this.status = status;
+		this.type = type;
 	}
 
 
@@ -116,29 +116,28 @@ public class ErsReimbursement {
 	}
 
 
-	public ErsStatus getErsStatus_Id() {
-		return status_Id;
+	public ErsStatus getErsStatus() {
+		return status;
 	}
 
 
-	public void setErsStatus_Id(ErsStatus status_Id) {
-		this.status_Id = status_Id;
+	public void setErsStatus(ErsStatus statusI) {
+		this.status = status;
+	}
+
+	public ErsType getErsType() {
+		return type;
 	}
 
 
-	public ErsType getErsType_Id() {
-		return type_Id;
-	}
-
-
-	public void setErsType_Id(ErsType type_Id) {
-		this.type_Id = type_Id;
+	public void setErsType(ErsType type) {
+		this.type = type;
 	}
 
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, author, description, id, recipt, resolved, resolver, status_Id, submitted, type_Id);
+		return Objects.hash(amount, author, description, id, recipt, resolved, resolver, status, submitted, type);
 	}
 
 
@@ -154,8 +153,8 @@ public class ErsReimbursement {
 		return Double.doubleToLongBits(amount) == Double.doubleToLongBits(other.amount)
 				&& Objects.equals(author, other.author) && Objects.equals(description, other.description)
 				&& id == other.id && Objects.equals(recipt, other.recipt) && resolved == other.resolved
-				&& Objects.equals(resolver, other.resolver) && Objects.equals(status_Id, other.status_Id)
-				&& submitted == other.submitted && Objects.equals(type_Id, other.type_Id);
+				&& Objects.equals(resolver, other.resolver) && Objects.equals(status, other.status)
+				&& submitted == other.submitted && Objects.equals(type, other.type);
 	}
 
 
@@ -163,7 +162,7 @@ public class ErsReimbursement {
 	public String toString() {
 		return "Reimbursement [id=" + id + ", amount=" + amount + ", submitted=" + submitted + ", resolved=" + resolved
 				+ ", description=" + description + ", recipt=" + recipt + ", author=" + author + ", resolver="
-				+ resolver + ", status_Id=" + status_Id + ", type_Id=" + type_Id + "]";
+				+ resolver + ", status=" + status + ", type=" + type + "]";
 	}
 	
 	

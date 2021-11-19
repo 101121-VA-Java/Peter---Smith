@@ -4,8 +4,8 @@ public class DaoFactory {
 
 
 	private static DaoFactory df;
-	private static UserDao ud;
-	// taskdao..
+	private UserDao ud;
+	private ReimDao rd;
 	
 	// because of the private access modifier, other classes cannot create instances of DaoFactory
 	private DaoFactory() {}
@@ -27,6 +27,13 @@ public class DaoFactory {
 		return ud;
 	}
 	
-	// do the same thing with TaskDao, always return the same instance
+	public ReimDao getReimDao() {
+		// Always return the same instance of EmployeeDao implementation when getEmployeeDao is called
+		if(rd == null) {
+			// if trying to change implementation to Oracle or mySQL can only change it in one place in my code
+			rd = new ReimDao();
+		}
+		return rd;
+	}
 	
 }
