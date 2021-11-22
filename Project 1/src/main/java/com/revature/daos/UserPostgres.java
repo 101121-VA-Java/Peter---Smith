@@ -18,7 +18,7 @@ import com.revature.models.ErsUsers;
 import com.revature.util.ConnectionUtil;
 
 
-public class UserPostgres implements GenericDao<ErsUsers>{
+public class UserPostgres implements UserDao{
 	private static Logger log = LogManager.getRootLogger();
 	
 	@Override
@@ -142,10 +142,40 @@ public class UserPostgres implements GenericDao<ErsUsers>{
 		}
 	}
 
+
 	@Override
-	public int delete(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public ErsUsers getUserByUsernameAndPassword(String username, String password) {
+		
+		String sql = "select * from ers_users join ers_roles on ers_users.e_role_id = ers_roles.r_id where e_username = ? and e_password = ?;";   	
+		ErsUsers emp = null;
+		
+		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
+			PreparedStatement ps = con.prepareStatement(sql);
+
+			ps.setString(1, username);
+			ps.setString(2, password);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				int id1 = rs.getInt("u_id");
+				String firstName = rs.getString("e_first_name");
+				String lastName = rs.getString("e_last_name");
+				String username1 = rs.getString("e_username");
+				String password1 = rs.getString("e_password");
+				String email = rs.getString("e_email");
+				int roleId = rs.getInt("r_id");
+				String role = rs.getString("r_role");
+
+				
+				emp = new ErsUsers(id1, firstName, lastName,username1,password1,email, new ErsRoles(roleId,role));    
+
+				
+			}
+		}catch (SQLException | IOException e) {
+			e.printStackTrace();
+		}
+		return emp;
 	}
 
 	

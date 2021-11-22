@@ -1,11 +1,13 @@
 package com.revature.daos;
 
 import java.io.IOException;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,16 +15,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.revature.models.ErsReimbursement;
-import com.revature.models.ErsRoles;
+import com.revature.models.ErsStatus;
+import com.revature.models.ErsType;
 import com.revature.models.ErsUsers;
 import com.revature.util.ConnectionUtil;
 
-public class ReimPostgres implements GenericDao<ErsReimbursement>{
+public class ReimPostgres implements ReimDao{
 	private static Logger log = LogManager.getRootLogger();
 	
 	@Override
-	public List<ErsReimbursement> getAll() {
-		String sql = "select * from ers_reimb join ers_users on ers_users.e_role_id = ers_roles.r_id;";                
+	public List<ErsReimbursement> getPending() {
+		String sql = "select * from ers_reimb join ers_status on ers_reimb.b_status_id = ers_status.s_id where ers_status.s_status = 'Pending';";                
 		List<ErsReimbursement> reimbs = new ArrayList<>();
 		
 		try (Connection connect = ConnectionUtil.getConnectionFromFile()) {
@@ -30,18 +33,17 @@ public class ReimPostgres implements GenericDao<ErsReimbursement>{
 			ResultSet rs = ps.executeQuery(sql);
 			
 			while (rs.next()) {
-				int id = rs.getInt("u_id");
-				String firstName = rs.getString("u_first_name");
-				String lastName = rs.getString("u_last_name");
-				String username = rs.getString("u_username");
-				String password = rs.getString("u_password");
-				String email = rs.getString("u_email");
-				int roleId = rs.getInt("r_id");
-				String role = rs.getString("r_role");
-
+				int id1 = rs.getInt("b_id");
+				Double amount = rs.getDouble("b_amount");
+				Timestamp submitted = rs.getTimestamp("b_submitted");
+				Timestamp resolved = rs.getTimestamp("b_resolved");
+				String description = rs.getString("b_description");
+				Blob receipt = rs.getBlob("b_receipt");
+				int userId = rs.getInt("b_author_id");
 				
-//				ErsReimbursement emp = new ErsReimbursement(id, amount, submitted, resolved, description, email, receipt, new ErsUsers(roleId,role));    
-//				reimbs.add(emp);
+				ErsReimbursement emp = new ErsReimbursement(id1, amount, submitted, resolved, description, receipt, new ErsUsers(userId,null, null, null, null, null, null), 
+						null, null, null);    
+				reimbs.add(emp);
 				}
 		
 		} catch (SQLException |IOException e) {
@@ -65,17 +67,31 @@ public class ReimPostgres implements GenericDao<ErsReimbursement>{
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-				int id1 = rs.getInt("u_id");
-				String firstName = rs.getString("e_first_name");
-				String lastName = rs.getString("e_last_name");
-				String username = rs.getString("e_username");
-				String password = rs.getString("e_password");
-				String email = rs.getString("e_email");
-				int roleId = rs.getInt("r_id");
-				String role = rs.getString("r_role");
+				int id1 = rs.getInt("b_id");
+				Double amount = rs.getDouble("b_amount");
+				Timestamp submitted = rs.getTimestamp("b_submitted");
+				Timestamp resolved = rs.getTimestamp("b_resolved");
+				String description = rs.getString("b_description");
+				Blob receipt = rs.getBlob("b_receipt");
+				int statusId = rs.getInt("s_id");
+				String status = rs.getString("s_status");
+				int typeId = rs.getInt("t_id");
+				String type = rs.getString("t_type");
+				int authorId = rs.getInt("e_id");
+				String afirstname = rs.getString("e_firstname");
+				String alastname = rs.getString("e_lastname");
+				String ausername = rs.getString("e_username");  
+				String aemail = rs.getString("e_email");
+//				int roleId = rs.getInt("r_id");                                       //TODO do we need role?
+//				String role = rs.getString("r_role");
+				int resolverId = rs.getInt("e_id");                                 //TODO how to distinguish between the two users
+				String rfirstname = rs.getString("e_firstname");
+				String rlastname = rs.getString("e_lastname");
+				String rusername = rs.getString("e_username");   				
+  
 
-				
-//				reim = new ErsReimbursement(id, firstName, lastName,username,password,email, new ErsRoles(roleId,role));    
+				reim = new ErsReimbursement(id1, amount, submitted, resolved, description, receipt, new ErsUsers(authorId,ausername,null, afirstname, alastname, aemail, null), 
+						new ErsUsers(resolverId,rusername,null, rfirstname, rlastname, null, null), new ErsStatus(statusId, status), new ErsType(typeId, type));    
 
 				
 			}
@@ -151,11 +167,72 @@ public class ReimPostgres implements GenericDao<ErsReimbursement>{
 	}
 
 	@Override
-	public int delete(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public List<ErsReimbursement> getResolved() {
+		String sql = "select * from ers_reimb join ers_status on ers_reimb.b_status_id = ers_status.s_id where ers_status.s_status = 'Resolved';";                
+		List<ErsReimbursement> reimbs = new ArrayList<>();
+		
+		try (Connection connect = ConnectionUtil.getConnectionFromFile()) {
+			Statement ps = connect.createStatement();
+			ResultSet rs = ps.executeQuery(sql);
+			
+			while (rs.next()) {
+				int id1 = rs.getInt("b_id");
+				Double amount = rs.getDouble("b_amount");
+				Timestamp submitted = rs.getTimestamp("b_submitted");
+				Timestamp resolved = rs.getTimestamp("b_resolved");
+				String description = rs.getString("b_description");
+				Blob receipt = rs.getBlob("b_receipt");
+				int userId = rs.getInt("b_author_id");
+				int resolvedId = rs.getInt("b_resolved_id");
+				
+				ErsReimbursement emp = new ErsReimbursement(id1, amount, submitted, resolved, description, receipt, new ErsUsers(userId,null, null, null, null, null, null), 
+						new ErsUsers(resolvedId,null, null, null, null, null, null), null, null);    
+				reimbs.add(emp);
+				}
+		
+		} catch (SQLException |IOException e) {
+			log.error("Error while trying to get item.");
+			e.printStackTrace();
+		} 
+	return reimbs;
 	}
 
-	
+	@Override
+	public List<ErsReimbursement> getAllForEmployee(int EmployeeId) {
+		String sql = "select * from ers_reimb join ers_users on ers_reimb.b_author_id = ers_users.e_id where ers_users.e_id = ?;";                
+		List<ErsReimbursement> reimbs = new ArrayList<>();
+		
+		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setInt(1, EmployeeId);
+			ResultSet rs = ps.executeQuery();
+			
+			
+			
+			while (rs.next()) {
+				int id1 = rs.getInt("b_id");
+				Double amount = rs.getDouble("b_amount");
+				Timestamp submitted = rs.getTimestamp("b_submitted");
+				Timestamp resolved = rs.getTimestamp("b_resolved");
+				String description = rs.getString("b_description");
+				Blob receipt = rs.getBlob("b_receipt");
+				int userId = rs.getInt("b_author_id");
+				int resolvedId = rs.getInt("b_resolved_id");
+				int statusId = rs.getInt("b_status_id");
+				int typeId = rs.getInt("b_status_id");
+				
+				ErsReimbursement emp = new ErsReimbursement(id1, amount, submitted, resolved, description, receipt, new ErsUsers(userId,null, null, null, null, null, null), 
+						new ErsUsers(resolvedId,null, null, null, null, null, null), new ErsStatus(statusId,null), new ErsType(typeId, null));    
+				reimbs.add(emp);
+				}
+		
+		} catch (SQLException |IOException e) {
+			log.error("Error while trying to get item.");
+			e.printStackTrace();
+		} 
+	return reimbs;
+	}
+
+		
 
 }

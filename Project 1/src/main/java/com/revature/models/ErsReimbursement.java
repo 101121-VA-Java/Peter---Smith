@@ -121,7 +121,7 @@ public class ErsReimbursement {
 	}
 
 
-	public void setErsStatus(ErsStatus statusI) {
+	public void setErsStatus(ErsStatus status) {
 		this.status = status;
 	}
 

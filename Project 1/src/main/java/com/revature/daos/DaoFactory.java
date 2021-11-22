@@ -22,7 +22,7 @@ public class DaoFactory {
 		// Always return the same instance of EmployeeDao implementation when getEmployeeDao is called
 		if(ud == null) {
 			// if trying to change implementation to Oracle or mySQL can only change it in one place in my code
-			ud = new UserDao();
+			ud = new UserPostgres();
 		}
 		return ud;
 	}
@@ -31,7 +31,7 @@ public class DaoFactory {
 		// Always return the same instance of EmployeeDao implementation when getEmployeeDao is called
 		if(rd == null) {
 			// if trying to change implementation to Oracle or mySQL can only change it in one place in my code
-			rd = new ReimDao();
+			rd = new ReimPostgres();
 		}
 		return rd;
 	}

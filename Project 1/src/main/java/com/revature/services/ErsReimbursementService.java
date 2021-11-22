@@ -45,11 +45,24 @@ private ReimDao rd;
 	 * @param username of the employee
 	 * @return a List of Reimbursements or an empty list if none are found
 	 */
-	public List<ErsReimbursement> getAllReimByUsername(String username){
+	public List<ErsReimbursement> getAllReimByUserId(int id){
 		
-		List<ErsReimbursement> reims = rd.getReimByUsername(username).stream()
+		List<ErsReimbursement> reims = rd.getAllForEmployee(id).stream()
 				.collect(Collectors.toList());
 		
 		return reims;
+	}
+	
+	/**
+	 * Service method to retrieve all reimbursements for a specific user
+	 * @param username of the employee
+	 * @return a List of Reimbursements or an empty list if none are found
+	 */
+	public ErsReimbursement getReimById(int id){
+		
+		ErsReimbursement reim = rd.getById(id);
+
+		
+		return reim;
 	}
 }
