@@ -65,4 +65,8 @@ private ReimDao rd;
 		
 		return reim;
 	}
+	
+	public int add(ErsReimbursement r) {
+		return rd.add(r);
+	}
 }
